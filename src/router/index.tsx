@@ -6,17 +6,21 @@ import ProductDetails from "../pages/ProductDetails";
 import PageNotFound from "../pages/PageNotFound";
 import ProfileComplete from "../pages/auth/ProfileComplete";
 import AuthLayout from "../pages/auth/AuthLayout";
+import Layout from "../pages/Layout";
+import Profile from "../pages/Profile";
+import Scan from "../pages/Scan";
 
 
 
 
 export const router = createBrowserRouter(createRoutesFromElements(
     <>
-        {/* <Route path="/" element={ }>
-            <Route index element={<>Home</>} />
-        </Route> */}
-
-        <Route path="/" element={<Index />} />
+        <Route path="/" element={<Layout />}>
+            <Route index element={<Index />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/scan" element={<Scan />} />
+            <Route path="/profile" element={<Profile />} />
+        </Route>
         <Route path="/product/:id" element={<ProductDetails />} />
 
         {/* Auth Routes */}

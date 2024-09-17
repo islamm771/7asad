@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import { MdOutlineFavorite } from "react-icons/md";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getUserData } from "../data";
 import { FaBarcode, FaBell, FaSearch, FaStore, FaUser } from "react-icons/fa";
 import { IProduct } from "../interface";
@@ -54,54 +54,103 @@ const Navbar = () => {
         <header className="flex justify-center md:justify-between items-center flex-wrap gap-[20px] md:gap-4 bg-teal-700 rounded-b-3xl p-4 border-b-4 border-gray-300 relative">
             <nav className="nav-links">
                 <ul className="flex items-center gap-5 list-none m-0 p-0 md:ml-[3rem]">
-                    <li className="flex flex-col gap-2 items-center text-[15px]">
-                        <FaBarcode className="text-white" />
-                        <a href="/scan" className="text-white text-[13px] text-center">
-                            الماسح الضوئي
-                        </a>
-                    </li>
-                    <li className="flex flex-col gap-2 items-center text-[15px] text-center">
-                        <MdOutlineFavorite className="text-white" />
-                        <a href="/favorite" className="text-white text-[13px] text-center">
-                            المفضله
-                        </a>
-                    </li>
-                    <li className="flex flex-col gap-2 items-center text-[15px] text-center">
-                        <FaBell className="text-white" />
-                        <a href="notifications" className="text-white text-[13px] text-center">
-                            الاشعارات
-                        </a>
-                    </li>
-                    <li className="flex flex-col gap-2 items-center text-[15px] text-center">
-                        <FaUser className="text-white" />
-                        <a href="/profile" className="text-white">
-                            الملف الشخصي
-                        </a>
-                    </li>
+                    {pathname !== "/" && (
+                        <li className="flex flex-col gap-2 items-center text-[15px] text-center">
+                            <FaStore className="text-white" />
+                            <Link to="/" className="text-white text-[13px] text-center">
+                                السوق
+                            </Link>
+                        </li>
+                    )}
+                    {pathname !== "/scan" && (
+                        <li className="flex flex-col gap-2 items-center text-[15px]">
+                            <FaBarcode className="text-white" />
+                            <Link to="/scan" className="text-white text-[13px] text-center">
+                                الماسح الضوئي
+                            </Link>
+                        </li>
+                    )}
+                    {pathname !== "/favourites" && (
+                        <li className="flex flex-col gap-2 items-center text-[15px] text-center">
+                            <MdOutlineFavorite className="text-white" />
+                            <Link to="/favorite" className="text-white text-[13px] text-center">
+                                المفضله
+                            </Link>
+                        </li>
+                    )}
+                    {pathname !== "/notifications" && (
+                        <li className="flex flex-col gap-2 items-center text-[15px] text-center">
+                            <FaBell className="text-white" />
+                            <Link to="/notifications" className="text-white text-[13px] text-center">
+                                الاشعارات
+                            </Link>
+                        </li>
+                    )}
+                    {pathname !== "/profile" && (
+                        <li className="flex flex-col gap-2 items-center text-[15px] text-center">
+                            <FaUser className="text-white" />
+                            <Link to="/profile" className="text-white">
+                                الملف الشخصي
+                            </Link>
+                        </li>
+                    )}
+
                     {pathname === "/" && (
                         <li className="text-white text-center md:ml-80 flex items-center gap-2">
                             <FaStore className="" />
-                            <a href="/" className="text-[20px]">
+                            <Link to="/" className="text-[20px]">
                                 السوق
-                            </a>
+                            </Link>
+                        </li>
+                    )}
+                    {pathname === "/profile" && (
+                        <li className="text-white text-center md:ml-80 flex items-center gap-2">
+                            <FaUser className="" />
+                            <Link to="/" className="text-[20px]">
+                                الملف الشخصي
+                            </Link>
+                        </li>
+                    )}
+                    {pathname === "/scan" && (
+                        <li className="text-white text-center md:ml-80 flex items-center gap-2">
+                            <FaBarcode className="" />
+                            <Link to="/" className="text-[20px]">
+                                الماسح الضوئي
+                            </Link>
+                        </li>
+                    )}
+                    {pathname === "/favourites" && (
+                        <li className="text-white text-center md:ml-80 flex items-center gap-2">
+                            <MdOutlineFavorite className="" />
+                            <Link to="/" className="text-[20px]">
+                                المفضله
+                            </Link>
+                        </li>
+                    )}
+                    {pathname === "/notifications" && (
+                        <li className="text-white text-center md:ml-80 flex items-center gap-2">
+                            <FaBell className="" />
+                            <Link to="/notifications" className="text-[20px]">
+                                الاشعارات
+                            </Link>
                         </li>
                     )}
                 </ul>
             </nav>
             <div className="text-center sm:text-right flex items-center gap-[10px] md:ml-[3rem] lg:ml-0">
                 {userData ? (
-                    <a href="#" className="text-white text-[14px] mr-16 sm:mr-12" onClick={handleLogout}>
+                    <button className="text-white text-[14px] mr-16 sm:mr-12" onClick={handleLogout}>
                         تسجيل خروج
-                    </a>
+                    </button>
                 ) : (
                     <>
-                        <a href="/auth/register" className="text-white text-[14px]">
+                        <Link to="/auth/register" className="text-white text-[14px]">
                             انشاء حساب
-                        </a>
+                        </Link>
                         <span className="text-[#fff]">/</span>
-                        <a href="/auth/login" className="text-white text-[14px]">
+                        <Link to="/auth/login" className="text-white text-[14px]">
                             تسجيل دخول
-                        </a>
+                        </Link>
                     </>
                 )}
                 <FaSearch
