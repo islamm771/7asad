@@ -95,11 +95,11 @@ const Navbar = () => {
                     </a>
                 ) : (
                     <>
-                        <a href="/register" className="text-white text-[14px]">
+                        <a href="/auth/register" className="text-white text-[14px]">
                             انشاء حساب
                         </a>
                         <span className="text-[#fff]">/</span>
-                        <a href="/login" className="text-white text-[14px]">
+                        <a href="/auth/login" className="text-white text-[14px]">
                             تسجيل دخول
                         </a>
                     </>
