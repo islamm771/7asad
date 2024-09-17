@@ -73,7 +73,7 @@ const Navbar = () => {
                     {pathname !== "/favourites" && (
                         <li className="flex flex-col gap-2 items-center text-[15px] text-center">
                             <MdOutlineFavorite className="text-white" />
-                            <Link to="/favorite" className="text-white text-[13px] text-center">
+                            <Link to="/favourites" className="text-white text-[13px] text-center">
                                 المفضله
                             </Link>
                         </li>
@@ -106,7 +106,7 @@ const Navbar = () => {
                     {pathname === "/profile" && (
                         <li className="text-white text-center md:ml-80 flex items-center gap-2">
                             <FaUser className="" />
-                            <Link to="/" className="text-[20px]">
+                            <Link to="/profile" className="text-[20px]">
                                 الملف الشخصي
                             </Link>
                         </li>
@@ -114,7 +114,7 @@ const Navbar = () => {
                     {pathname === "/scan" && (
                         <li className="text-white text-center md:ml-80 flex items-center gap-2">
                             <FaBarcode className="" />
-                            <Link to="/" className="text-[14px] md:text-[20px]">
+                            <Link to="/scan" className="text-[14px] md:text-[20px]">
                                 الماسح الضوئي
                             </Link>
                         </li>
@@ -122,7 +122,7 @@ const Navbar = () => {
                     {pathname === "/favourites" && (
                         <li className="text-white text-center md:ml-80 flex items-center gap-2">
                             <MdOutlineFavorite className="" />
-                            <Link to="/" className="text-[20px]">
+                            <Link to="/favourites" className="text-[20px]">
                                 المفضله
                             </Link>
                         </li>
