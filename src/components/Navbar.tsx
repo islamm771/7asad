@@ -98,7 +98,7 @@ const Navbar = () => {
                     {pathname === "/" && (
                         <li className="text-white text-center md:ml-80 flex items-center gap-2">
                             <FaStore className="" />
-                            <Link to="/" className="text-[20px]">
+                            <Link to="/" className="md:text-[20px]">
                                 السوق
                             </Link>
                         </li>
@@ -114,7 +114,7 @@ const Navbar = () => {
                     {pathname === "/scan" && (
                         <li className="text-white text-center md:ml-80 flex items-center gap-2">
                             <FaBarcode className="" />
-                            <Link to="/" className="text-[20px]">
+                            <Link to="/" className="text-[14px] md:text-[20px]">
                                 الماسح الضوئي
                             </Link>
                         </li>
@@ -154,7 +154,7 @@ const Navbar = () => {
                     </>
                 )}
                 <FaSearch
-                    className="text-white text-xl ml-[10px] mr-8 md:mr-4 cursor-pointer"
+                    className="text-white md:text-xl ml-[10px] mr-8 md:mr-4 cursor-pointer"
                     onClick={handleSearchIconClick}
                 />
                 {searchVisible && (

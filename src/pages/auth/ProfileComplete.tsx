@@ -60,16 +60,13 @@ const ProfileComplete = () => {
     if (user) {
         return (
             <>
-                <h3 className="text-teal-700 text-2xl font-normal text-right mt-12">
-                    إضافه صورة شخصية
-                </h3>
                 <div className="flex justify-between flex-wrap-reverse mt-16 mb-10">
                     <div className="w-full md:w-[50%]">
                         <form action="" onSubmit={handleSubmit(onSubmit)}>
-                            <div className="form-row relative flex flex-row-reverse items-center gap-8 mb-6">
+                            <div className="form-row relative flex flex-col mb-6">
                                 <label
                                     htmlFor="name"
-                                    className={`text-right text-xl font-normal ${errors.name?.message ? "text-red-500" : "text-teal-700"}`}
+                                    className={`text-right text-xl font-medium ${errors.name?.message ? "text-red-500" : "text-teal-700"}`}
                                 >
                                     الأسم
                                 </label>
@@ -77,7 +74,7 @@ const ProfileComplete = () => {
                                     type="text"
                                     id="name"
                                     // value={user.name}
-                                    className={`border-b p-2 pl-9 w-full focus:outline-none text-right ${errors.name?.message ? "border-red-500" : "border-teal-700"}`}
+                                    className={`border-b p-2 pl-9 w-full focus:outline-none text-right bg-transparent ${errors.name?.message ? "border-red-500" : "border-teal-700"}`}
                                     placeholder={
                                         !errors.name?.message
                                             ? "ادخل الاسم"
@@ -91,10 +88,10 @@ const ProfileComplete = () => {
                                 />
                             </div>
 
-                            <div className="form-row relative flex flex-row-reverse items-center gap-4 mb-6">
+                            <div className="form-row relative flex flex-col mb-6">
                                 <label
                                     htmlFor="job"
-                                    className={`text-right text-xl font-normal relative ${errors.job?.message ? "text-red-500" : "text-teal-700"
+                                    className={`text-right text-xl font-medium ${errors.job?.message ? "text-red-500" : "text-teal-700"
                                         }`}
                                 >
                                     الوظيفة
@@ -107,7 +104,7 @@ const ProfileComplete = () => {
                                             ? "ادخل الوطيفة"
                                             : "يجب إدخال بيانات لهذا الحقل , برجاء ملئ البيانات بشكل صحيح"
                                     }
-                                    className={`border-b p-2 pl-9 w-full focus:outline-none text-right ${errors.job?.message ? "border-red-500" : "border-teal-700"}`}
+                                    className={`border-b p-2 pl-9 w-full bg-transparent focus:outline-none text-right ${errors.job?.message ? "border-red-500" : "border-teal-700"}`}
                                     {...register("job", { required: "برجاء ادخال البانات لهذا الحقل" })}
                                 />
                                 <FaCircleExclamation
@@ -116,31 +113,31 @@ const ProfileComplete = () => {
                                 />
                             </div>
 
-                            <div className="form-row relative flex flex-row-reverse items-center gap-5 mb-6">
+                            <div className="form-row relative flex flex-col mb-6">
                                 <label
                                     htmlFor="country"
-                                    className="text-right text-teal-700 font-normal text-xl"
+                                    className="text-right text-teal-700 font-medium text-xl"
                                 >
                                     العنوان
                                 </label>
                                 <input
                                     type="text"
-                                    placeholder="المدينة / محل الإقامة (الشارع , رقم المبني)"
                                     id="country"
-                                    className="w-full border-b p-2 border-teal-700 focus:outline-none text-right"
+                                    placeholder="المدينة / محل الإقامة (الشارع , رقم المبني)"
+                                    className="w-full border-b p-2 border-teal-700 bg-transparent focus:outline-none text-right"
                                 />
                             </div>
 
-                            <div className="form-row relative flex flex-row-reverse items-center gap-4 mb-6">
-                                <label htmlFor="phone" className={`text-right text-xl font-normal relative ${errors.phone?.message ? "text-red-500" : "text-teal-700"}`}>
+                            <div className="form-row relative flex flex-col mb-6">
+                                <label htmlFor="phone"
+                                    className={`text-right text-xl font-medium ${errors.phone?.message ? "text-red-500" : "text-teal-700"}`}>
                                     رقم الهاتف
-
                                 </label>
-                                <div className="relative flex items-center flex-1">
+                                <div className="relative flex items-center w-full">
                                     <input
                                         type="text"
                                         id="phone"
-                                        className={`border-b w-full p-2 pl-9 focus:outline-none flex-grow text-right pr-[70px] ${errors.phone?.message ? "border-red-500" : "border-teal-700"
+                                        className={`border-b w-full p-2 pl-9 bg-transparent focus:outline-none flex-grow text-right pr-[70px] ${errors.phone?.message ? "border-red-500" : "border-teal-700"
                                             }`}
                                         placeholder={
                                             !errors.phone?.message
@@ -167,7 +164,7 @@ const ProfileComplete = () => {
                                 />
                             </div>
 
-                            <div className="form-row relative flex flex-row-reverse items-center gap-4 mb-8">
+                            <div className="form-row relative flex flex-col mb-8">
                                 <label
                                     htmlFor="Educationaldegree"
                                     className={`text-right text-teal-700 font-normal text-xl`}
@@ -177,7 +174,7 @@ const ProfileComplete = () => {
                                 <input
                                     type="text"
                                     id="Educationaldegree"
-                                    className={`border-b border-teal-700 p-2 flex-1 focus:outline-none text-right`}
+                                    className={`w-full bg-transparent border-b border-teal-700 p-2 focus:outline-none text-right`}
                                     placeholder={"ادخل المؤهل التعليمي"}
                                     {...register("Educationaldegree", { required: "برجاء ادخال البانات لهذا الحقل" })}
                                 />
@@ -193,10 +190,13 @@ const ProfileComplete = () => {
                     </div>
 
                     <div className="w-full md:w-[40%]">
+                        <h3 className="text-teal-700 text-2xl font-normal text-right mb-12">
+                            إضافه صورة شخصية
+                        </h3>
                         <div className="flex items-center justify-center md:justify-end">
                             <label
                                 htmlFor="image"
-                                className="relative w-[200px] h-[190px] bg-gray-200 rounded-full shadow cursor-pointer overflow-hidden"
+                                className="relative w-[200px] h-[200px] bg-gray-200 rounded-full shadow cursor-pointer overflow-hidden"
                             >
                                 {selectedImage ? (
                                     <img

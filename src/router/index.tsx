@@ -9,6 +9,8 @@ import AuthLayout from "../pages/auth/AuthLayout";
 import Layout from "../pages/Layout";
 import Profile from "../pages/Profile";
 import Scan from "../pages/Scan";
+import Notifications from "../pages/Notifications";
+import Favourites from "../pages/Favourites";
 
 
 
@@ -19,6 +21,8 @@ export const router = createBrowserRouter(createRoutesFromElements(
             <Route index element={<Index />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/scan" element={<Scan />} />
+            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/favourites" element={<Favourites />} />
             <Route path="/profile" element={<Profile />} />
         </Route>
         <Route path="/product/:id" element={<ProductDetails />} />
