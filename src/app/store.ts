@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { productsSlice } from './features/ProductsSlice'
 import marketSlice from './features/marketSlice'
 import { reviewsSlice } from './features/ReviewsSlice'
-import { favouriteSlice } from './features/favouriteSlice'
+import { favouriteSlice } from './features/FavouriteSlice'
 
 export const store = configureStore({
     reducer: {

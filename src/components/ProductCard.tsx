@@ -1,7 +1,7 @@
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { GrCart } from "react-icons/gr";
 import { Link, useNavigate } from "react-router-dom";
-import { useAddFavouriteMutation, useGetFavouritesQuery, useRemoveFavouriteMutation } from "../app/features/favouriteSlice";
+import { useAddFavouriteMutation, useGetFavouritesQuery, useRemoveFavouriteMutation } from "../app/features/FavouriteSlice";
 import { IFavorite, IProduct } from "../interface";
 
 interface IProps {
