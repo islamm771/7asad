@@ -51,9 +51,9 @@ const Navbar = () => {
     };
 
     return (
-        <header className="flex justify-center md:justify-between items-center flex-wrap gap-[20px] md:gap-4 bg-teal-700 rounded-b-3xl p-4 border-b-4 border-gray-300 relative">
-            <nav className="nav-links">
-                <ul className="flex items-center gap-5 list-none m-0 p-0 md:ml-[3rem]">
+        <header className="flex justify-center md:justify-between items-center flex-wrap gap-6 md:gap-4 bg-teal-700 rounded-b-3xl p-4 border-b-4 border-gray-300 relative">
+            <nav className="nav-links flex-grow ">
+                <ul className="flex items-center flex-wrap-reverse lg:flex-nowrap justify-center gap-5 lg:gap-8 list-none m-0 p-0 md:ml-[3rem]">
                     {/* Start Navbar Links */}
                     {pathname !== "/" && (
                         <li>
@@ -98,23 +98,23 @@ const Navbar = () => {
                     {/* End Navbar Links */}
 
                     {pathname === "/" && (
-                        <li className="text-white text-center md:ml-64 flex items-center gap-2">
+                        <li className="text-white text-center flex flex-row-reverse flex-1 items-center justify-center min-[460px]:justify-start lg:justify-center gap-2 md:text-[20px]">
                             <FaStore className="" />
-                            <Link to="/" className="md:text-[20px]">
+                            <Link to="/" className="">
                                 السوق
                             </Link>
                         </li>
                     )}
                     {pathname === "/profile" && (
-                        <li className="text-white text-center md:ml-64 flex items-center gap-2">
+                        <li className="text-white text-center flex flex-row-reverse flex-1 items-center justify-center min-[460px]:justify-start lg:justify-center gap-2 md:text-[20px]">
                             <FaUser className="" />
-                            <Link to="/profile" className="text-[20px]">
+                            <Link to="/profile">
                                 الملف الشخصي
                             </Link>
                         </li>
                     )}
                     {pathname === "/scan" && (
-                        <li className="text-white text-center md:ml-64 flex items-center gap-2">
+                        <li className="text-white text-center flex flex-row-reverse flex-1 items-center justify-center min-[460px]:justify-start lg:justify-center gap-2 md:text-[20px]">
                             <FaBarcode className="" />
                             <Link to="/scan" className="text-[14px] md:text-[20px]">
                                 الماسح الضوئي
@@ -122,7 +122,7 @@ const Navbar = () => {
                         </li>
                     )}
                     {pathname === "/favourites" && (
-                        <li className="text-white text-center md:ml-64 flex items-center gap-2">
+                        <li className="text-white text-center flex flex-row-reverse flex-1 items-center justify-center min-[460px]:justify-start lg:justify-center gap-2 md:text-[20px]">
                             <MdOutlineFavorite className="" />
                             <Link to="/favourites" className="text-[20px]">
                                 المفضله
@@ -130,7 +130,7 @@ const Navbar = () => {
                         </li>
                     )}
                     {pathname === "/notifications" && (
-                        <li className="text-white text-center md:ml-64 flex items-center gap-2">
+                        <li className="text-white text-center flex flex-row-reverse flex-1 items-center justify-center min-[460px]:justify-start lg:justify-center gap-2 md:text-[20px]">
                             <FaBell className="" />
                             <Link to="/notifications" className="text-[20px]">
                                 الاشعارات
@@ -160,7 +160,7 @@ const Navbar = () => {
                     onClick={handleSearchIconClick}
                 />
                 {searchVisible && (
-                    <div className="w-11/12 md:w-96 bg-white rounded-bl-3xl border-2 border-teal-700 absolute top-full right-1/2 translate-x-1/2 md:translate-x-0 md:right-0 z-10">
+                    <div className="w-11/12 md:w-96 bg-white mt-1 rounded-bl-3xl border-2 border-teal-700 absolute top-full right-1/2 translate-x-1/2 md:translate-x-0 md:right-2 z-10">
                         <div className="flex items-center border-b border-teal-700 p-2">
                             <button
                                 className=""
@@ -188,15 +188,16 @@ const Navbar = () => {
                                     <img
                                         src={result.photo[0]}
                                         alt={result.name}
-                                        className="w-[100px] h-[100px] object-cover rounded-lg"
+                                        className="w-[100px] h-[100px] object-cover rounded-lg cursor-pointer"
                                         onClick={() => navigate(`/product/${result._id}`)}
                                     />
                                     <div className="flex-1">
-                                        <h2 className="text-[18px] text-right font-semibold text-teal-900">{result.name}</h2>
+                                        <Link to={`/product/${result._id}`} className="text-[18px] text-right font-semibold text-teal-900">{result.name}</Link>
                                         <p className="text-teal-600 text-right font-medium">{result.categoryName}</p>
                                         <p className="text-teal-600 text-right font-medium">طن/جم: {result.price}</p>
                                     </div>
-                                    <button className="py-2 px-4 text-white bg-teal-700 rounded-md mt-5">
+                                    <button className="py-2 px-4 text-white bg-teal-700 rounded-md mt-5"
+                                        onClick={() => navigate(`/product/${result._id}`)}>
                                         اشتري الان
                                     </button>
 
@@ -206,7 +207,7 @@ const Navbar = () => {
                     </div>
                 )}
             </div>
-        </header>
+        </header >
     );
 };
 

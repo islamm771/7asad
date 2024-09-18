@@ -18,7 +18,7 @@ const ProductsList = () => {
                 <h1 className="text-teal-950 text-[30px] font-medium text-right mt-8 mb-8">
                     {category ? category : "الكل"}
                 </h1>
-                <div className="flex flex-wrap">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {data.data.products.length > 0 ? (
                         data.data.products.map((product: IProduct, index: number) => (
                             <ProductCard

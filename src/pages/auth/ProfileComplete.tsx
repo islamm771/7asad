@@ -249,7 +249,7 @@ const ProfileComplete = () => {
                                                 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-neutral-400 text-5xl"
                                             />
                                         )}
-                                {(imgURL || user.photo) && <FaCheck className="bg-green-500 absolute bottom-4 right-4 text-white text-3xl p-1 rounded-full" />}
+                                {(imgURL || user.photo) && <FaCheck className="bg-green-500 absolute bottom-4 right-4 text-white text-3xl p-2 rounded-full" />}
                             </label>
                             <input
                                 type="file"

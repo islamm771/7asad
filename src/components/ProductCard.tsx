@@ -35,7 +35,7 @@ const ProductCard = ({ product }: IProps) => {
     }
 
     return (
-        <div className="w-full md:w-1/2 lg:w-1/3 mb-6 px-2">
+        <div className="product-card">
             <div className="bg-white rounded-[10px] box-shadow border-2 border-teal-700 p-4 relative">
                 <div className="absolute top-6 left-6 bg-white/50 p-2 rounded-full">
                     {data?.data?.favorites?.some((item: IFavorite) => item.product._id === product._id) ? (
