@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 const Profile = () => {
     const navigate = useNavigate()
     const user = getUserData();
-    console.log(user)
     const handleEditProfile = () => {
         navigate("/auth/profile-complete", { state: { user } })
     }
@@ -14,15 +13,11 @@ const Profile = () => {
         <div className="container pt-28">
             <div className="w-full lg:max-w-[1000px] mx-auto py-11 bg-white rounded-xl shadow border-2 border-teal-700 relative">
                 <div className="absolute right-10 -top-20">
-                    <input type="file" id="image-upload" className="hidden" />
-                    <label htmlFor="image-upload">
-                        <img
-                            className="w-40 h-40  rounded-full border-4 border-teal-700 cursor-pointer"
-                            src="https://via.placeholder.com/700x700"
-                            // src={user.photo}
-                            alt="Profile"
-                        />
-                    </label>
+                    <img
+                        className="w-40 h-40 rounded-full border-4 border-teal-700"
+                        src={user.photo ? user.photo : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF0QxSZCjz-8JefhrJrJwtL5i7utqDsRhv7Q&s"}
+                        alt="Profile"
+                    />
                 </div>
                 {/* Name */}
                 <div className="text-right flex justify-end items-center mr-6 mt-12 lg:mt-0 lg:mr-64">

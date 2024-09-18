@@ -39,13 +39,6 @@ const Login = () => {
             setTimeout(() => {
                 navigate('/');
             }, 1000)
-
-            // if (location.state && location.state == "/from") {
-            //     navigate('/profilecomplete', { state: { id: user["_id"] } });
-            // } else {
-            //     navigate('/');
-            // }
-
         } catch (error) {
             const errorObj = error as AxiosError<IError>
             console.log(errorObj.response?.data.message)
@@ -78,7 +71,7 @@ const Login = () => {
                             {...register("phone",
                                 {
                                     required: "برجاء ادخال رقم الهاتف",
-                                    minLength: { value: 11, message: "رقم الهاتف غير صالح" },
+                                    // minLength: { value: 11, message: "رقم الهاتف غير صالح" },
                                     // maxLength: { value: 11, message: "رقم الهاتف غير صالح" }
                                 })}
                         />

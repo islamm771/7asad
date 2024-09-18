@@ -1,33 +1,50 @@
-import { Link, useNavigate } from "react-router-dom";
-import { IProduct } from "../interface"
-import { GrCart } from "react-icons/gr";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { GrCart } from "react-icons/gr";
+import { Link, useNavigate } from "react-router-dom";
+import { useAddFavouriteMutation, useGetFavouritesQuery, useRemoveFavouriteMutation } from "../app/features/favouriteSlice";
+import { IFavorite, IProduct } from "../interface";
 
 interface IProps {
     product: IProduct,
-    favourites: IProduct[],
-    handleFavourite: (item: IProduct) => void
 }
 
-const ProductCard = ({ product, favourites, handleFavourite }: IProps) => {
+const ProductCard = ({ product }: IProps) => {
+    const { data } = useGetFavouritesQuery({});
+    const [addFavourite] = useAddFavouriteMutation();
+    const [removeFavourite] = useRemoveFavouriteMutation();
     const navigate = useNavigate();
     const { name, place, description, photo, amount, price, date, user } = product
 
+    const handleAddToFav = (id: string) => {
+        addFavourite({ productId: id })
+            .unwrap()
+            .catch((error) => {
+                console.error("Failed to add favorite:", error);
+            });
+    };
+
+    const handleRemoveFromFav = (id: string) => {
+        removeFavourite({ favouriteId: id })
+            .unwrap()
+            .catch((error) => {
+                console.error("Failed to remove favorite:", error);
+            });
+    };
     const handleAddToCart = async () => {
         console.log("add to cart")
     }
 
     return (
-        <div className="w-full sm:w-1/3 mb-6 px-2">
+        <div className="w-full md:w-1/2 lg:w-1/3 mb-6 px-2">
             <div className="bg-white rounded-[10px] box-shadow border-2 border-teal-700 p-4 relative">
                 <div className="absolute top-6 left-6 bg-white/50 p-2 rounded-full">
-                    {favourites.includes(product) ? (
+                    {data?.data?.favorites?.some((item: IFavorite) => item.product._id === product._id) ? (
                         <FaHeart size={18} className="text-red-500"
-                            onClick={() => handleFavourite(product)}
+                            onClick={() => { handleRemoveFromFav("3465qweqwqsdasdsdfg") }}
                         />
                     ) : (
                         <FaRegHeart size={18} className="text-gray-500" role="button"
-                            onClick={() => handleFavourite(product)}
+                            onClick={() => { handleAddToFav(product._id) }}
                         />
                     )}
                 </div>

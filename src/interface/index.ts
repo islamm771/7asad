@@ -43,6 +43,29 @@ export interface IReview {
     id: string;
 }
 
+export interface IFavorite {
+    _id: string;
+    user: string; // Assuming you have a User interface already
+    product: {
+        _id: string;
+        name: string;
+        description: string;
+        photo: string[];
+        price: number;
+        amount: number;
+        place: string;
+        OneItemPrice: number;
+        discount: number;
+        priceAfterDiscount: number;
+        categoryName: string;
+        user: string;
+        date: string;
+        __v: number;
+    }; // Assuming you have a Product interface already
+    __v: number;
+}
+
+
 export interface IError {
     message: string;
 }

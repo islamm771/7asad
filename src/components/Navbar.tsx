@@ -54,49 +54,51 @@ const Navbar = () => {
         <header className="flex justify-center md:justify-between items-center flex-wrap gap-[20px] md:gap-4 bg-teal-700 rounded-b-3xl p-4 border-b-4 border-gray-300 relative">
             <nav className="nav-links">
                 <ul className="flex items-center gap-5 list-none m-0 p-0 md:ml-[3rem]">
+                    {/* Start Navbar Links */}
                     {pathname !== "/" && (
-                        <li className="flex flex-col gap-2 items-center text-[15px] text-center">
-                            <FaStore className="text-white" />
-                            <Link to="/" className="text-white text-[13px] text-center">
+                        <li>
+                            <Link to="/" className="text-white flex flex-col gap-2 items-center text-[15px]">
+                                <FaStore />
                                 السوق
                             </Link>
                         </li>
                     )}
                     {pathname !== "/scan" && (
-                        <li className="flex flex-col gap-2 items-center text-[15px]">
-                            <FaBarcode className="text-white" />
-                            <Link to="/scan" className="text-white text-[13px] text-center">
+                        <li>
+                            <Link to="/scan" className="text-white flex flex-col gap-2 items-center text-[15px]">
+                                <FaBarcode />
                                 الماسح الضوئي
                             </Link>
                         </li>
                     )}
                     {pathname !== "/favourites" && (
-                        <li className="flex flex-col gap-2 items-center text-[15px] text-center">
-                            <MdOutlineFavorite className="text-white" />
-                            <Link to="/favourites" className="text-white text-[13px] text-center">
+                        <li>
+                            <Link to="/favourites" className="text-white flex flex-col gap-2 items-center text-[15px]">
+                                <MdOutlineFavorite />
                                 المفضله
                             </Link>
                         </li>
                     )}
                     {pathname !== "/notifications" && (
-                        <li className="flex flex-col gap-2 items-center text-[15px] text-center">
-                            <FaBell className="text-white" />
-                            <Link to="/notifications" className="text-white text-[13px] text-center">
+                        <li>
+                            <Link to="/notifications" className="text-white flex flex-col gap-2 items-center text-[15px]">
+                                <FaBell />
                                 الاشعارات
                             </Link>
                         </li>
                     )}
                     {pathname !== "/profile" && (
-                        <li className="flex flex-col gap-2 items-center text-[15px] text-center">
-                            <FaUser className="text-white" />
-                            <Link to="/profile" className="text-white">
+                        <li>
+                            <Link to="/profile" className="text-white flex flex-col gap-2 items-center text-[15px]">
+                                <FaUser />
                                 الملف الشخصي
                             </Link>
                         </li>
                     )}
+                    {/* End Navbar Links */}
 
                     {pathname === "/" && (
-                        <li className="text-white text-center md:ml-80 flex items-center gap-2">
+                        <li className="text-white text-center md:ml-64 flex items-center gap-2">
                             <FaStore className="" />
                             <Link to="/" className="md:text-[20px]">
                                 السوق
@@ -104,7 +106,7 @@ const Navbar = () => {
                         </li>
                     )}
                     {pathname === "/profile" && (
-                        <li className="text-white text-center md:ml-80 flex items-center gap-2">
+                        <li className="text-white text-center md:ml-64 flex items-center gap-2">
                             <FaUser className="" />
                             <Link to="/profile" className="text-[20px]">
                                 الملف الشخصي
@@ -112,7 +114,7 @@ const Navbar = () => {
                         </li>
                     )}
                     {pathname === "/scan" && (
-                        <li className="text-white text-center md:ml-80 flex items-center gap-2">
+                        <li className="text-white text-center md:ml-64 flex items-center gap-2">
                             <FaBarcode className="" />
                             <Link to="/scan" className="text-[14px] md:text-[20px]">
                                 الماسح الضوئي
@@ -120,7 +122,7 @@ const Navbar = () => {
                         </li>
                     )}
                     {pathname === "/favourites" && (
-                        <li className="text-white text-center md:ml-80 flex items-center gap-2">
+                        <li className="text-white text-center md:ml-64 flex items-center gap-2">
                             <MdOutlineFavorite className="" />
                             <Link to="/favourites" className="text-[20px]">
                                 المفضله
@@ -128,7 +130,7 @@ const Navbar = () => {
                         </li>
                     )}
                     {pathname === "/notifications" && (
-                        <li className="text-white text-center md:ml-80 flex items-center gap-2">
+                        <li className="text-white text-center md:ml-64 flex items-center gap-2">
                             <FaBell className="" />
                             <Link to="/notifications" className="text-[20px]">
                                 الاشعارات

@@ -53,7 +53,7 @@ const ProfileComplete = () => {
                 console.log("Image upload response:", data);
                 setImgURL(data.image);
                 toast.success("Image uploaded successfully", {
-                    duration: 2000,
+                    duration: 4000,
                     position: 'top-right',
                 })
             } catch (error) {
@@ -249,7 +249,7 @@ const ProfileComplete = () => {
                                                 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-neutral-400 text-5xl"
                                             />
                                         )}
-                                {imgURL || user.photo && <FaCheck className="bg-green-500 absolute bottom-4 right-4 text-white text-3xl p-1 rounded-full" />}
+                                {(imgURL || user.photo) && <FaCheck className="bg-green-500 absolute bottom-4 right-4 text-white text-3xl p-1 rounded-full" />}
                             </label>
                             <input
                                 type="file"
