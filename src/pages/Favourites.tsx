@@ -1,4 +1,4 @@
-import { useGetFavouritesQuery } from "../app/features/favouriteSlice";
+import { useGetFavouritesQuery } from "../app/features/FavouriteSlice";
 import FavCard from "../components/FavCard";
 import { IFavorite } from "../interface";
 
