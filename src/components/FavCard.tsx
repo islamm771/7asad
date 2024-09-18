@@ -2,7 +2,7 @@ import { useState } from "react"
 import { FaBookmark, FaUser } from "react-icons/fa"
 import { FaLocationDot } from "react-icons/fa6"
 import { RiDeleteBin6Line } from "react-icons/ri"
-import { useRemoveFavouriteMutation } from "../app/features/favouriteSlice"
+import { useRemoveFavouriteMutation } from "../app/features/FavouriteSlice"
 import { IFavorite } from "../interface"
 
 interface IProps {
