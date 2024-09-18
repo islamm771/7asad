@@ -22,22 +22,21 @@ const ProductsList = () => {
             <h1 className="text-teal-950 text-[30px] font-medium text-right mt-16 mb-8">
                 {category ? category : "الكل"}
             </h1>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {data?.data?.products.length > 0 ? (
-                    data?.data?.products.map((product: IProduct, index: number) => (
+
+            {data?.data?.products.length > 0 ? (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {data?.data?.products.map((product: IProduct, index: number) => (
                         <ProductCard
                             product={product}
                             key={index}
                         />
-                    ))
-                ) : (
-                    <div className="w-full flex items-center justify-center h-32">
-                        <p className="text-red-600 text-xl font-medium">
-                            There are no products available now
-                        </p>
-                    </div>
-                )}
-            </div>
+                    ))}
+                </div>
+            ) : (
+                <p className="text-red-600 text-xl font-medium text-center mt-8">
+                    There are no products available now
+                </p>
+            )}
         </div>
     );
 };
