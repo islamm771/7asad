@@ -36,12 +36,10 @@ const Login = () => {
             const { user } = data.data;
             console.log(user);
             localStorage.setItem('user-info', JSON.stringify(user));
-            // setTimeout(() => {
-            //     navigate('/');
-            // }, 1000)
             setTimeout(() => {
-                navigate('/auth/profile-complete', { state: { user } });
+                navigate('/');
             }, 1000)
+
             // if (location.state && location.state == "/from") {
             //     navigate('/profilecomplete', { state: { id: user["_id"] } });
             // } else {
@@ -81,7 +79,7 @@ const Login = () => {
                                 {
                                     required: "برجاء ادخال رقم الهاتف",
                                     minLength: { value: 11, message: "رقم الهاتف غير صالح" },
-                                    maxLength: { value: 11, message: "رقم الهاتف غير صالح" }
+                                    // maxLength: { value: 11, message: "رقم الهاتف غير صالح" }
                                 })}
                         />
                         <p className='text-sm text-red-500'>{errors.phone?.message}</p>

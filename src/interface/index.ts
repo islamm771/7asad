@@ -10,6 +10,9 @@ export interface IUser {
     date: string;
     __v: number;
     photo?: string
+    Educationaldegree: string
+    country: string
+    job: string
 }
 
 export interface IProduct {

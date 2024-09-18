@@ -1,27 +1,39 @@
-import { ChangeEvent, useEffect, useState } from "react"
-import { useLocation } from "react-router-dom"
-import { IUser } from "../../interface"
+import { ChangeEvent, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
+import { FaCheck, FaCloudUploadAlt } from "react-icons/fa"
 import { FaCircleExclamation } from "react-icons/fa6"
-import { FaCloudUploadAlt } from "react-icons/fa"
+import { useLocation, useNavigate } from "react-router-dom"
+import { axiosInstance } from "../../config/axios.config"
+import toast from "react-hot-toast"
 
 interface IFormInput {
     name: string
     country: string
     phone: string
     job: string,
-    Educationaldegree: string
+    Educationaldegree: string,
+    photo: string
 }
 
 
 
 const ProfileComplete = () => {
+    const navigate = useNavigate()
     const { state } = useLocation()
+    const { user } = state
     const [selectedImage, setSelectedImage] = useState<File>();
-    const [isImageUploaded, setIsImageUploaded] = useState(false);
-    const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>()
+    const [imgURL, setImgURL] = useState("")
+    const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>({
+        defaultValues: {
+            name: user?.name,
+            country: user?.country,
+            phone: user?.phone,
+            job: user?.job,
+            Educationaldegree: user?.Educationaldegree,
+        }
+    })
 
-    const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
 
         if (files) {
@@ -29,33 +41,51 @@ const ProfileComplete = () => {
             const reader = new FileReader();
             reader.onload = () => {
                 setSelectedImage(file);
-                setIsImageUploaded(true);
             };
             reader.readAsDataURL(file);
+            const formImageData = new FormData();
+            formImageData.append('image', file);
+            try {
+                const { data } = await axiosInstance.post("/auth/uploadProfileImage", formImageData, {
+                    withCredentials: true,
+                    // Let the browser set the correct Content-Type for FormData
+                });
+                console.log("Image upload response:", data);
+                setImgURL(data.image);
+                toast.success("Image uploaded successfully", {
+                    duration: 2000,
+                    position: 'top-right',
+                })
+            } catch (error) {
+                console.error("Image upload error:", error);
+            }
         }
     };
 
+    const onSubmit: SubmitHandler<IFormInput> = async (formData) => {
+        formData = { ...formData, photo: imgURL ? imgURL : user.photo }
+        try {
+            const { data } = await axiosInstance.patch("/auth/updateProfile", formData, {
+                withCredentials: true,
+                headers: {
+                    "Content-Type": 'application/json',
+                },
+            })
+            const { user } = data.data
+            localStorage.setItem('user-info', JSON.stringify(user));
+            toast.success("User is updated successfully", {
+                duration: 2000,
+                position: 'top-right',
+            })
+            setTimeout(() => {
+                navigate('/profile');
+            }, 2000)
+        } catch (error) {
 
-    const onSubmit: SubmitHandler<IFormInput> = (formData) => {
-        console.log(formData)
-    }
-    const [user, setUser] = useState<IUser>({
-        name: "",
-        email: "",
-        phone: "",
-        password: "",
-        _id: "",
-        __v: 0,
-        date: "",
-        experince: [],
-        role: "",
-        userRating: 0,
-    })
+        }
 
-    useEffect(() => {
-        setUser(state?.user)
+    };
 
-    }, []);
 
     if (user) {
         return (
@@ -125,6 +155,7 @@ const ProfileComplete = () => {
                                     id="country"
                                     placeholder="المدينة / محل الإقامة (الشارع , رقم المبني)"
                                     className="w-full border-b p-2 border-teal-700 bg-transparent focus:outline-none text-right"
+                                    {...register("country")}
                                 />
                             </div>
 
@@ -176,7 +207,7 @@ const ProfileComplete = () => {
                                     id="Educationaldegree"
                                     className={`w-full bg-transparent border-b border-teal-700 p-2 focus:outline-none text-right`}
                                     placeholder={"ادخل المؤهل التعليمي"}
-                                    {...register("Educationaldegree", { required: "برجاء ادخال البانات لهذا الحقل" })}
+                                    {...register("Educationaldegree")}
                                 />
                             </div>
 
@@ -193,16 +224,16 @@ const ProfileComplete = () => {
                         <h3 className="text-teal-700 text-2xl font-normal text-right mb-12">
                             إضافه صورة شخصية
                         </h3>
-                        <div className="flex items-center justify-center md:justify-end">
+                        <div className="flex flex-col items-end justify-center md:justify-end">
                             <label
                                 htmlFor="image"
-                                className="relative w-[200px] h-[200px] bg-gray-200 rounded-full shadow cursor-pointer overflow-hidden"
+                                className="relative w-[200px] h-[200px] bg-gray-200 rounded-full shadow cursor-pointer"
                             >
                                 {selectedImage ? (
                                     <img
                                         src={URL.createObjectURL(selectedImage)}
                                         alt="Uploaded"
-                                        className="w-full h-full object-cover"
+                                        className="w-full h-full object-cover rounded-full"
                                     />
                                 ) :
                                     user?.photo ?
@@ -210,16 +241,15 @@ const ProfileComplete = () => {
                                             <img
                                                 src={user?.photo}
                                                 alt="Uploaded"
-                                                className="w-full h-full object-cover"
+                                                className="w-full h-full object-cover rounded-full"
                                             />
                                         )
                                         : (
-                                            <>
-                                                <FaCloudUploadAlt
-                                                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-neutral-400 text-5xl"
-                                                />
-                                            </>
+                                            <FaCloudUploadAlt
+                                                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-neutral-400 text-5xl"
+                                            />
                                         )}
+                                {imgURL || user.photo && <FaCheck className="bg-green-500 absolute bottom-4 right-4 text-white text-3xl p-1 rounded-full" />}
                             </label>
                             <input
                                 type="file"
@@ -227,10 +257,8 @@ const ProfileComplete = () => {
                                 className="hidden"
                                 onChange={handleImageChange}
                             />
-                        </div>
-                        <div className="flex items-center md:items-end flex-col gap-4 text-right mb-12">
-                            <p className="text-zinc-500 font-normal text-sm mt-6 text-center">
-                                {isImageUploaded ? (
+                            <p className="text-zinc-500 font-normal text-sm mt-6 pr-2 text-center">
+                                {selectedImage || user?.photo ? (
                                     <>
                                         يمكنك تعديل صورتك الشخصية
                                         <br />
@@ -245,6 +273,23 @@ const ProfileComplete = () => {
                                 )}
                             </p>
                         </div>
+                        {/* <div className="flex items-center md:items-end flex-col gap-4 text-right mb-12">
+                            <p className="text-zinc-500 font-normal text-sm mt-6 text-center">
+                                {selectedImage || user?.photo ? (
+                                    <>
+                                        يمكنك تعديل صورتك الشخصية
+                                        <br />
+                                        أو اختيار صورة جديدة من جهازك
+                                    </>
+                                ) : (
+                                    <>
+                                        يمكنك أختيار صورة من جهازك
+                                        <br />
+                                        الشخصي
+                                    </>
+                                )}
+                            </p>
+                        </div> */}
                     </div>
                 </div>
             </>

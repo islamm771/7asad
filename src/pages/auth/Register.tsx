@@ -48,7 +48,7 @@ const Register = () => {
             localStorage.setItem('user-info', JSON.stringify(user));
             setTimeout(() => {
                 navigate('/profile-complete', { state: { user } });
-            }, 1000)
+            }, 2000)
         } catch (error) {
             const errorObj = error as AxiosError<IError>
             console.log(errorObj.response?.data.message)
