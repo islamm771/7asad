@@ -23,8 +23,8 @@ const ProductsList = () => {
                 {category ? category : "الكل"}
             </h1>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {data.data.products.length > 0 ? (
-                    data.data.products.map((product: IProduct, index: number) => (
+                {data?.data?.products.length > 0 ? (
+                    data?.data?.products.map((product: IProduct, index: number) => (
                         <ProductCard
                             product={product}
                             key={index}
