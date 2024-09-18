@@ -4,11 +4,11 @@ import SpecialOffers from '../components/home/SpecialOffers'
 
 const Index = () => {
     return (
-        <>
+        <div className='bg-white py-8'>
             <SpecialOffers />
             <AllCategories />
             <ProductsList />
-        </>
+        </div>
     )
 }
 

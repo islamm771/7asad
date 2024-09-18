@@ -27,7 +27,6 @@ const ProductDetails = () => {
             </div>
         )
     }
-    console.log(data.data.product)
     return (
         <div className="">
             <Header />

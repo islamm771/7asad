@@ -34,6 +34,8 @@ const ProductCard = ({ product }: IProps) => {
         console.log("add to cart")
     }
 
+    console.log(data)
+
     return (
         <div className="product-card">
             <div className="bg-white rounded-[10px] box-shadow border-2 border-teal-700 p-4 relative">

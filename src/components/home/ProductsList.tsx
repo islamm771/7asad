@@ -9,36 +9,37 @@ const ProductsList = () => {
     const { isLoading, data } = useGetProductsQuery({ category: category });
 
     if (isLoading) {
-        return <div className="container py-4">Loading...</div>;
+        return <div className="container py-4">
+            <h1 className="text-teal-950 text-[30px] font-medium text-right mt-16 mb-8">
+                {category ? category : "الكل"}
+            </h1>
+            <h3 className="text-3xl font-semibold py-12">Loading...</h3>
+        </div>;
     }
 
-    if (data) {
-        return (
-            <div className="productsList container pt-8">
-                <h1 className="text-teal-950 text-[30px] font-medium text-right mt-8 mb-8">
-                    {category ? category : "الكل"}
-                </h1>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {data.data.products.length > 0 ? (
-                        data.data.products.map((product: IProduct, index: number) => (
-                            <ProductCard
-                                product={product}
-                                key={index}
-                            />
-                        ))
-                    ) : (
-                        <div className="w-full flex items-center justify-center h-32">
-                            <p className="text-red-600 text-xl font-medium">
-                                There are no products available now
-                            </p>
-                        </div>
-                    )}
-                </div>
+    return (
+        <div className="productsList container">
+            <h1 className="text-teal-950 text-[30px] font-medium text-right mt-16 mb-8">
+                {category ? category : "الكل"}
+            </h1>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {data.data.products.length > 0 ? (
+                    data.data.products.map((product: IProduct, index: number) => (
+                        <ProductCard
+                            product={product}
+                            key={index}
+                        />
+                    ))
+                ) : (
+                    <div className="w-full flex items-center justify-center h-32">
+                        <p className="text-red-600 text-xl font-medium">
+                            There are no products available now
+                        </p>
+                    </div>
+                )}
             </div>
-        );
-    }
-
-    return null;
+        </div>
+    );
 };
 
 export default ProductsList;

@@ -9,10 +9,22 @@ export const reviewsSlice = createApi({
             query: (arg) => {
                 return `/${arg.id}`;
             },
+            providesTags: ['Reviews'],
+        }),
+        addReview: builder.mutation<void, { productId: string | undefined, data: { review: string, rating: number } }>({
+            query: (arg) => ({
+                url: `/${arg.productId}/reviews`,
+                method: 'POST',
+                body: {
+                    review: arg.data.review,
+                    rating: arg.data.rating,
+                },
+            }),
+            invalidatesTags: ['Reviews'],
         }),
     })
 })
 
 
 
-export const { useGetProductReviewsQuery } = reviewsSlice
+export const { useGetProductReviewsQuery, useAddReviewMutation } = reviewsSlice

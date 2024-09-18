@@ -9,9 +9,9 @@ const Favourites = () => {
         <h3 className="text-center text-medium text-2xl">... جاري تحميل المفضلة</h3>
     </div>
     return (
-        <div className="container pt-16">
+        <div className="container py-16">
             {data.data.favorites.length ? (
-                <div className="grid gap-6">
+                <div className="grid gap-10 md:gap-6">
                     {data.data.favorites.map((fav: IFavorite, index: number) => (
                         <FavCard fav={fav} key={index} />
                     ))}

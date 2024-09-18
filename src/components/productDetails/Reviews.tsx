@@ -1,7 +1,9 @@
-import { Fragment, useState } from 'react';
+import { FormEvent, Fragment, useState } from 'react';
+import toast from 'react-hot-toast';
 import { FaStar } from 'react-icons/fa';
-import { useParams } from 'react-router-dom';
-import { useGetProductReviewsQuery } from '../../app/features/ReviewsSlice';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAddReviewMutation, useGetProductReviewsQuery } from '../../app/features/ReviewsSlice';
+import { getUserData } from '../../data';
 import { IReview } from '../../interface';
 import UserReview from './UserReview';
 
@@ -15,11 +17,53 @@ const ratings = [
 
 
 const Reviews = () => {
+    const user = getUserData();
+    const navigate = useNavigate()
     const { id } = useParams()
     const { isLoading, data } = useGetProductReviewsQuery({ id: id })
-    const [reviewText, setReviewText] = useState('');
-    const [rating, setRating] = useState(0);
+    const [addReview] = useAddReviewMutation()
+    const [formData, setFormData] = useState({
+        rating: 0,
+        review: ""
+    })
+
     const [hover, setHover] = useState(0);
+
+    const handleRatingChange = (rate: number) => {
+        setFormData({ ...formData, rating: rate });
+    }
+
+    const handleReviewChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setFormData({ ...formData, review: e.target.value });
+    }
+
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (!user) {
+            navigate("/auth/login");
+            return
+        }
+        if (!formData.rating) {
+            toast.error("برجاء ادخال التقييم", {
+                duration: 2000,
+                position: 'top-right',
+            })
+            return
+        }
+        // // Add review to the API
+        addReview({ productId: id, data: formData })
+            .unwrap()
+            .catch((error) => {
+                console.error("Failed to add favorite:", error);
+            });
+        setFormData({
+            rating: 0,
+            review: ""
+        })
+    }
+
+
+
     if (isLoading) {
         return <div>
             <h3 className="text-3xl font-semibold py-12">Loading...</h3>
@@ -77,7 +121,7 @@ const Reviews = () => {
                 ))}
             </div>
 
-            <div className='text-right py-5'>
+            <form className='text-right py-5' onSubmit={handleSubmit}>
                 <h2 className='text-black text-2xl font-normal'>اكتب تقييمك</h2>
 
                 <div className="flex items-center">
@@ -89,12 +133,12 @@ const Reviews = () => {
                                     type="radio"
                                     name="rating"
                                     value={currentRating}
-                                    onClick={() => setRating(currentRating)}
+                                    onClick={() => handleRatingChange(currentRating)}
                                     className="sr-only"
                                 />
                                 <FaStar
                                     className="text-xl"
-                                    color={currentRating <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
+                                    color={currentRating <= (hover || formData.rating) ? "#ffc107" : "#e4e5e9"}
                                     onMouseEnter={() => setHover(currentRating)}
                                     onMouseLeave={() => setHover(0)}
                                     aria-label={`Rate ${currentRating} stars`}
@@ -107,19 +151,17 @@ const Reviews = () => {
                 <textarea
                     className="w-full h-40 mt-4 p-2 border border-gray-300 rounded-xl text-right "
                     placeholder="...اكتب هنا"
-                    value={reviewText}
-                    onChange={(e) => setReviewText(e.target.value)}
+                    value={formData.review}
+                    onChange={handleReviewChange}
                 />
 
                 <div className='flex items-center flex-col'>
                     <button
-                        className="bg-teal-700 text-white rounded-[12px] font-bold mt-6 mb-12 px-24 py-1 text-lg"
-                    // onClick={handleSubmit}
-                    >
+                        className="bg-teal-700 text-white rounded-[12px] font-bold mt-6 mb-12 px-24 py-1 text-lg">
                         إرسال
                     </button>
                 </div>
-            </div>
+            </form>
         </div>
     )
 }

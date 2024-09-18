@@ -33,12 +33,12 @@ const FavCard = ({ fav }: IProps) => {
     }
 
     return (
-        <div className="fav-card flex flex-row-reverse gap-8">
-            <div className="w-[200px] h-[200px]">
+        <div className="fav-card flex flex-row-reverse gap-5 md:gap-8 flex-wrap">
+            <div className="w-[100px] h-[100px] md:w-[200px] md:h-[200px]">
                 <img className="w-full h-full rounded-xl" src={product.photo[0]} alt="" />
             </div>
-            <div className="flex flex-col gap-5 flex-grow py-2">
-                <div className="title flex flex-row-reverse gap-16">
+            <div className="flex flex-col gap-3 md:gap-5 flex-grow py-2">
+                <div className="title flex flex-row-reverse gap-6 md:gap-16 flex-wrap">
                     <h3 className="text-3xl font-medium">{product.name}</h3>
                     <ul>
                         <li className="flex flex-row-reverse text-xl text-teal-950">
@@ -52,14 +52,15 @@ const FavCard = ({ fav }: IProps) => {
                     </ul>
                 </div>
                 <p className="text-right text-slate-600 text-[16px] font-normal leading-8">
-                    {/* .لدينا للبيع محصول قمح ذو جودة عالية وممتازة. يتمزَّر القمح باللون
-                    الذهبي الجميل ويتمتع بحبوب كبيرة وممتلئة
-                    .يتم زراعة هذا المحصول باستخدام أفضل الممارسات الزراعية وبدون
-                    استخدام المبيدات الحشرية الضارة
-                    .يتم حصاد القمح في وقته المناسب{" "} */}
                     {product.description}
                 </p>
-                <div className="flex items-center justify-between mt-2">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-2" dir="rtl">
+                    <button className="text-teal-950 text-start text-xl" onClick={() => handleRemoveFromFav(fav._id)}>
+                        حذف <RiDeleteBin6Line className="text-red-600 text-2xl mt-1 inline" />
+                    </button>
+                    <button className="text-teal-950 text-start text-xl">
+                        حفظ لاحقا <FaBookmark className="text-green-300 text-xl mt-1 inline" />
+                    </button>
                     <div className="flex">
                         <button
                             className="counter-btn w-[40px] h-[30px] bg-stone-300 rounded-2xl text-[22px] font-bold flex items-center justify-center"
@@ -77,12 +78,8 @@ const FavCard = ({ fav }: IProps) => {
                             +
                         </button>
                     </div>
-                    <button className="text-teal-950 mr-2 text-xl">
-                        حفظ لاحقا <FaBookmark className="text-green-300 text-xl mr-0 mt-1 inline" />
-                    </button>
-                    <button className="text-teal-950 text-xl mr-2" onClick={() => handleRemoveFromFav(fav._id)}>
-                        حذف <RiDeleteBin6Line className="text-red-600 text-2xl mt-1 inline" />
-                    </button>
+
+
                 </div>
             </div>
         </div>

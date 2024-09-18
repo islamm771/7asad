@@ -11,27 +11,57 @@ import Profile from "../pages/Profile";
 import Scan from "../pages/Scan";
 import Notifications from "../pages/Notifications";
 import Favourites from "../pages/Favourites";
+import { getUserData } from "../data";
+import ProtectedRoute from "./ProtectedRoute";
 
 
+const user = getUserData();
 
 
 export const router = createBrowserRouter(createRoutesFromElements(
     <>
         <Route path="/" element={<Layout />}>
             <Route index element={<Index />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/scan" element={<Scan />} />
-            <Route path="/notifications" element={<Notifications />} />
-            <Route path="/favourites" element={<Favourites />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="scan" element={
+                <ProtectedRoute isAllowed={user} path="/auth/login">
+                    <Scan />
+                </ProtectedRoute>
+            } />
+            <Route path="notifications" element={
+                <ProtectedRoute isAllowed={user} path="/auth/login">
+                    <Notifications />
+                </ProtectedRoute>
+            } />
+            <Route path="favourites" element={
+                <ProtectedRoute isAllowed={user} path="/auth/login">
+                    <Favourites />
+                </ProtectedRoute>
+            } />
+            <Route path="profile" element={
+                <ProtectedRoute isAllowed={user} path="/auth/login">
+                    <Profile />
+                </ProtectedRoute>
+            } />
         </Route>
         <Route path="/product/:id" element={<ProductDetails />} />
 
         {/* Auth Routes */}
         <Route path="/auth" element={<AuthLayout />}>
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-            <Route path="profile-complete" element={<ProfileComplete />} />
+            <Route path="login" element={
+                <ProtectedRoute isAllowed={!user} path="/">
+                    <Login />
+                </ProtectedRoute>
+            } />
+            <Route path="register" element={
+                <ProtectedRoute isAllowed={!user} path="/">
+                    <Register />
+                </ProtectedRoute>
+            } />
+            <Route path="profile-complete" element={
+                <ProtectedRoute isAllowed={!user} path="/">
+                    <ProfileComplete />
+                </ProtectedRoute>
+            } />
         </Route>
 
         {/* Not Found Route */}

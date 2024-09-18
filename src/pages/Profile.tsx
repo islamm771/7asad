@@ -10,7 +10,7 @@ const Profile = () => {
         navigate("/auth/profile-complete", { state: { user } })
     }
     return (
-        <div className="container pt-28">
+        <div className="container pt-28 pb-16">
             <div className="w-full lg:max-w-[1000px] mx-auto py-11 bg-white rounded-xl shadow border-2 border-teal-700 relative">
                 <div className="absolute right-10 -top-20">
                     <img

@@ -33,10 +33,10 @@ const AllCategories = () => {
     const renderSection = (section: { image: string, title: string }, index: number) => (
         <div
             key={index}
-            className="mb-8 card-container hover:transform hover:-translate-y-5 transition duration-300"
+            className="card-container hover:transform hover:-translate-y-5 transition duration-300"
             onClick={() => onSelectCategory(section.title)}
         >
-            <div className="w-[110px] h-[110px] bg-white rounded-[10px] shadow border-2 border-teal-700 mx-auto card cursor-pointer">
+            <div className="w-full min-[420px]:w-[110px] h-[110px] bg-white rounded-[10px] shadow border-2 border-teal-700 mx-auto card cursor-pointer">
                 <img
                     className="w-[50px] h-[40px] mx-auto mt-8"
                     src={section.image}
@@ -48,9 +48,7 @@ const AllCategories = () => {
     );
     return (
         <div className="container">
-            <div className="mt-16 mb-8">
-                <h1 className="text-teal-950 text-[30px] font-medium text-right mt-12 mb-4">الأقسام</h1>
-            </div>
+            <h1 className="text-teal-950 text-[30px] font-medium text-right mt-16 mb-8">الأقسام</h1>
             <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-[15px]">
                 {sectionsData.map(renderSection)}
             </div>

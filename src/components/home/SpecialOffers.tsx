@@ -14,7 +14,7 @@ const SpecialOffers = () => {
 
     return (
         <div className="container">
-            <h1 className="text-teal-950 text-[30px] font-medium mt-8 text-right pr-4">
+            <h1 className="text-teal-950 text-[30px] font-medium text-right pr-4">
                 عروض خاصة
             </h1>
             <Swiper
