@@ -2,7 +2,6 @@ import { useGetCartQuery } from "../app/features/CartSlice";
 import CartCard from "../components/CartCard";
 import { IFavorite } from "../interface";
 
-
 const cart: IFavorite[] = [
     {
         _id: "",
