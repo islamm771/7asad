@@ -19,30 +19,38 @@ const ProductCard = ({ product }: IProps) => {
     const handleAddToFav = (id: string) => {
         addFavourite({ productId: id })
             .unwrap()
+            .then(() => {
+                toast.success("تم اضافة العنصر في المفضلة", {
+                    duration: 2000,
+                    position: 'top-right',
+                });
+            })
             .catch((error) => {
                 console.error("Failed to add favorite:", error);
+                toast.error("خطأ اثناء اضافة العنصر في المفضلة", {
+                    duration: 2000,
+                    position: 'top-right',
+                });
             });
-        setTimeout(() => {
-            toast.success("تم اضافة العنصر في المفضلة", {
-                duration: 2000,
-                position: 'top-right',
-            });
-        }, 2000);
     };
 
     const handleRemoveFromFav = (id: string) => {
         const fav: IFavorite[] = data?.data?.favorites?.filter((fav: IFavorite) => fav.product._id === id)
         removeFavourite({ favouriteId: fav[0]._id })
             .unwrap()
+            .then(() => {
+                toast.success("تم مسح العنصر من المفضلة", {
+                    duration: 2000,
+                    position: 'top-right',
+                });
+            })
             .catch((error) => {
                 console.error("Failed to remove favorite:", error);
+                toast.error("خطأ اثناء مسح العنصر من المفضلة", {
+                    duration: 2000,
+                    position: 'top-right',
+                });
             });
-        setTimeout(() => {
-            toast.success("تم مسح العنصر من المفضلة", {
-                duration: 2000,
-                position: 'top-right',
-            });
-        }, 2000);
     };
     const handleAddToCart = async () => {
         console.log("add to cart")
