@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Paper from '@mui/material/Paper';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { FaTimes, FaTrashAlt } from 'react-icons/fa';
@@ -134,17 +134,17 @@ const Products = () => {
 
     const columns: GridColDef[] = [
         { field: 'id', headerName: 'No', width: 70 },
-        { field: 'img', headerName: 'Image', width: 130, renderCell: (params) => <img className='w-[70px] h-full' src={params.value} alt="product-photo" /> }, // Assuming img is a URL
+        { field: 'img', headerName: 'Image', width: 130, renderCell: (params: GridCellParams) => <img className='w-[70px] h-full' src={params.value as string} alt="product-photo" /> }, // Assuming img is a URL
         { field: 'name', headerName: 'Product Name', width: 150 },
         { field: 'amount', headerName: 'Amount', width: 130 },
         { field: 'price', headerName: 'Price', width: 130 },
         { field: 'sellerName', headerName: 'Seller Name', width: 150 },
         { field: 'phoneNumber', headerName: 'Phone Number', width: 180 },
         {
-            field: 'action', headerName: '', width: 120, renderCell: (params) => (
+            field: 'action', headerName: '', width: 120, renderCell: (params: GridCellParams) => (
                 <div className='flex items-center gap-3 h-full justify-center'>
-                    <button className='p-3 rounded-md bg-teal-600 text-white' onClick={() => handleEditClick(params.value)}><HiPencil /></button>
-                    <button className='p-3 rounded-md bg-red-600 text-white' onClick={() => handleDeleteClick(params.value)}><FaTrashAlt /></button>
+                    <button className='p-3 rounded-md bg-teal-600 text-white' onClick={() => handleEditClick(params.value as IProduct)}><HiPencil /></button>
+                    <button className='p-3 rounded-md bg-red-600 text-white' onClick={() => handleDeleteClick(params.value as IProduct)}><FaTrashAlt /></button>
                 </div>
             )
         },
