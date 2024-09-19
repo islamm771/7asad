@@ -15,6 +15,10 @@ import { getUserData } from "../data";
 import ProtectedRoute from "./ProtectedRoute";
 import Cart from "../pages/Cart";
 import AllSpecialOffers from "../pages/AllSpecialOffers";
+import AdminLogin from "../pages/Admin/Login";
+import AdminDashBoard from "../pages/Admin/Dashboard";
+import Users from "../pages/Admin/Users";
+import Products from "../pages/Admin/Products";
 
 
 const user = getUserData();
@@ -71,6 +75,11 @@ export const router = createBrowserRouter(createRoutesFromElements(
                 </ProtectedRoute>
             } />
         </Route>
+
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDashBoard />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/products" element={<Products />} />
 
         {/* Not Found Route */}
         <Route path="*" element={<PageNotFound />} />

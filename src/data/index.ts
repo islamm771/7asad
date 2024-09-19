@@ -4,3 +4,12 @@ export const getUserData = () => {
 
     return userData
 }
+
+
+
+export const getAdminData = () => {
+    const adminDataString = localStorage.getItem("admin-info")
+    const adminData = adminDataString ? JSON.parse(adminDataString) : null
+
+    return adminData
+}

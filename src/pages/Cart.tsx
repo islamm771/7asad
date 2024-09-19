@@ -31,7 +31,7 @@ const cart: IFavorite[] = [
 
 
 const Cart = () => {
-    const { isLoading, data } = useGetCartQuery({})
+    const { isLoading } = useGetCartQuery({})
 
     if (isLoading) return <div className="container pt-16">
         <h3 className="text-center text-medium text-2xl">... جاري تحميل المفضلة</h3>
