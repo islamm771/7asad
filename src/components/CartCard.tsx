@@ -2,31 +2,24 @@ import { useState } from "react"
 import { FaBookmark, FaUser } from "react-icons/fa"
 import { FaLocationDot } from "react-icons/fa6"
 import { RiDeleteBin6Line } from "react-icons/ri"
-import { useRemoveFavouriteMutation } from "../app/features/FavouriteSlice"
+import { useRemoveFromCartMutation } from "../app/features/CartSlice"
 import { IFavorite } from "../interface"
-import toast from "react-hot-toast"
 
 interface IProps {
-    fav: IFavorite,
+    cartItem: IFavorite,
 }
 
-const FavCard = ({ fav }: IProps) => {
-    const [removeFavourite] = useRemoveFavouriteMutation();
-    const { product } = fav
+const CartCard = ({ cartItem }: IProps) => {
+    const [removeFromCart] = useRemoveFromCartMutation();
+    const { product } = cartItem
     const [quantity, setQuantity] = useState<number>(1);
 
-    const handleRemoveFromFav = (id: string) => {
-        removeFavourite({ favouriteId: id })
+    const handleRemoveFromCart = (id: string) => {
+        removeFromCart({ productId: id })
             .unwrap()
             .catch((error) => {
                 console.error("Failed to remove favorite:", error);
             });
-        setTimeout(() => {
-            toast.success("تم مسح العنصر من المفضلة", {
-                duration: 2000,
-                position: 'top-right',
-            });
-        }, 2000);
     };
 
     const handleIncrement = () => {
@@ -62,7 +55,7 @@ const FavCard = ({ fav }: IProps) => {
                     {product.description}
                 </p>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-2" dir="rtl">
-                    <button className="text-teal-950 text-start text-xl" onClick={() => handleRemoveFromFav(fav._id)}>
+                    <button className="text-teal-950 text-start text-xl" onClick={() => handleRemoveFromCart(product._id)}>
                         حذف <RiDeleteBin6Line className="text-red-600 text-2xl mt-1 inline" />
                     </button>
                     <button className="text-teal-950 text-start text-xl">
@@ -94,4 +87,4 @@ const FavCard = ({ fav }: IProps) => {
 }
 
 
-export default FavCard
+export default CartCard

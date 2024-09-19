@@ -3,6 +3,7 @@ import { GrCart } from "react-icons/gr";
 import { Link, useNavigate } from "react-router-dom";
 import { useAddFavouriteMutation, useGetFavouritesQuery, useRemoveFavouriteMutation } from "../app/features/FavouriteSlice";
 import { IFavorite, IProduct } from "../interface";
+import toast from "react-hot-toast";
 
 interface IProps {
     product: IProduct,
@@ -21,28 +22,39 @@ const ProductCard = ({ product }: IProps) => {
             .catch((error) => {
                 console.error("Failed to add favorite:", error);
             });
+        setTimeout(() => {
+            toast.success("تم اضافة العنصر في المفضلة", {
+                duration: 2000,
+                position: 'top-right',
+            });
+        }, 2000);
     };
 
     const handleRemoveFromFav = (id: string) => {
-        removeFavourite({ favouriteId: id })
+        const fav: IFavorite[] = data?.data?.favorites?.filter((fav: IFavorite) => fav.product._id === id)
+        removeFavourite({ favouriteId: fav[0]._id })
             .unwrap()
             .catch((error) => {
                 console.error("Failed to remove favorite:", error);
             });
+        setTimeout(() => {
+            toast.success("تم مسح العنصر من المفضلة", {
+                duration: 2000,
+                position: 'top-right',
+            });
+        }, 2000);
     };
     const handleAddToCart = async () => {
         console.log("add to cart")
     }
-
-    console.log(data)
 
     return (
         <div className="product-card">
             <div className="bg-white rounded-[10px] box-shadow border-2 border-teal-700 p-4 relative">
                 <div className="absolute top-6 left-6 bg-white/50 p-2 rounded-full">
                     {data?.data?.favorites?.some((item: IFavorite) => item.product._id === product._id) ? (
-                        <FaHeart size={18} className="text-red-500"
-                            onClick={() => { handleRemoveFromFav("3465qweqwqsdasdsdfg") }}
+                        <FaHeart size={18} className="text-red-500" role="button"
+                            onClick={() => { handleRemoveFromFav(product._id) }}
                         />
                     ) : (
                         <FaRegHeart size={18} className="text-gray-500" role="button"

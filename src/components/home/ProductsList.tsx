@@ -33,7 +33,7 @@ const ProductsList = () => {
                     ))}
                 </div>
             ) : (
-                <p className="text-red-600 text-xl font-medium text-center mt-8">
+                <p className="text-red-600 text-xl font-medium text-center my-12">
                     There are no products available now
                 </p>
             )}

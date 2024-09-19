@@ -13,6 +13,8 @@ import Notifications from "../pages/Notifications";
 import Favourites from "../pages/Favourites";
 import { getUserData } from "../data";
 import ProtectedRoute from "./ProtectedRoute";
+import Cart from "../pages/Cart";
+import AllSpecialOffers from "../pages/AllSpecialOffers";
 
 
 const user = getUserData();
@@ -37,6 +39,11 @@ export const router = createBrowserRouter(createRoutesFromElements(
                     <Favourites />
                 </ProtectedRoute>
             } />
+            <Route path="cart" element={
+                <ProtectedRoute isAllowed={user} path="/auth/login">
+                    <Cart />
+                </ProtectedRoute>
+            } />
             <Route path="profile" element={
                 <ProtectedRoute isAllowed={user} path="/auth/login">
                     <Profile />
@@ -44,6 +51,7 @@ export const router = createBrowserRouter(createRoutesFromElements(
             } />
         </Route>
         <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/all-special-offers" element={<AllSpecialOffers />} />
 
         {/* Auth Routes */}
         <Route path="/auth" element={<AuthLayout />}>

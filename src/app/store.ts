@@ -3,6 +3,7 @@ import { productsSlice } from './features/ProductsSlice'
 import marketSlice from './features/marketSlice'
 import { reviewsSlice } from './features/ReviewsSlice'
 import { favouriteSlice } from './features/FavouriteSlice'
+import { cartSlice } from './features/CartSlice'
 
 export const store = configureStore({
     reducer: {
@@ -10,11 +11,12 @@ export const store = configureStore({
         [productsSlice.reducerPath]: productsSlice.reducer,
         [reviewsSlice.reducerPath]: reviewsSlice.reducer,
         [favouriteSlice.reducerPath]: favouriteSlice.reducer,
+        [cartSlice.reducerPath]: cartSlice.reducer,
     },
     middleware: (getDefaultMiddleware) => (
         getDefaultMiddleware({
             serializableCheck: false,
-        }).concat([productsSlice.middleware, reviewsSlice.middleware, favouriteSlice.middleware])
+        }).concat([productsSlice.middleware, reviewsSlice.middleware, favouriteSlice.middleware, cartSlice.middleware])
     ),
 })
 

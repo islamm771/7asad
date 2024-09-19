@@ -1,12 +1,12 @@
 import axios from "axios";
 import { ChangeEvent, useState } from "react";
+import toast from "react-hot-toast";
+import { FaBarcode, FaBell, FaSearch, FaShoppingCart, FaStore, FaUser } from "react-icons/fa";
 import { MdOutlineFavorite } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { getUserData } from "../data";
-import { FaBarcode, FaBell, FaSearch, FaStore, FaUser } from "react-icons/fa";
-import { IProduct } from "../interface";
-import toast from "react-hot-toast";
 import { axiosInstance } from "../config/axios.config";
+import { getUserData } from "../data";
+import { IProduct } from "../interface";
 
 const Navbar = () => {
     const { pathname } = useLocation();
@@ -67,16 +67,8 @@ const Navbar = () => {
         <header className="bg-teal-700 rounded-b-3xl py-5 border-b-4 border-gray-300 relative">
             <div className="container flex justify-center items-center flex-wrap gap-6">
                 <nav className="nav-links flex-grow flex items-center flex-wrap-reverse gap-6">
-                    <ul className="grid grid-cols-4 gap-4">
+                    <ul className={`grid ${pathname == "/cart" ? "grid-cols-5" : "grid-cols-4"} gap-4`}>
                         {/* Start Navbar Links */}
-                        {pathname !== "/" && (
-                            <li>
-                                <Link to="/" className="text-center text-white flex flex-col gap-2 items-center lg:text-[15px]">
-                                    <FaStore />
-                                    السوق
-                                </Link>
-                            </li>
-                        )}
                         {pathname !== "/scan" && (
                             <li>
                                 <Link to="/scan" className="text-center text-white flex flex-col gap-2 items-center lg:text-[15px]">
@@ -106,6 +98,14 @@ const Navbar = () => {
                                 <Link to="/profile" className="text-center text-white flex flex-col gap-2 items-center lg:text-[15px]">
                                     <FaUser />
                                     الملف الشخصي
+                                </Link>
+                            </li>
+                        )}
+                        {pathname !== "/" && (
+                            <li>
+                                <Link to="/" className="text-center text-white flex flex-col gap-2 items-center lg:text-[15px]">
+                                    <FaStore />
+                                    السوق
                                 </Link>
                             </li>
                         )}
@@ -141,6 +141,15 @@ const Navbar = () => {
                             <MdOutlineFavorite className="" />
                             <Link to="/favourites" className="text-[20px]">
                                 المفضله
+                            </Link>
+                        </h3>
+                    )}
+                    {pathname === "/cart" && (
+                        <h3 className="text-white text-center flex flex-row-reverse flex-1 items-center justify-center min-[460px]:justify-start lg:justify-center gap-2 md:text-[20px]">
+                            <FaShoppingCart />
+
+                            <Link to="/favourites" className="text-[20px]">
+                                السلة
                             </Link>
                         </h3>
                     )}
