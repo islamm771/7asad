@@ -8,7 +8,7 @@ import { IUser } from '../../interface';
 
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'No', width: 70 },
-    { field: 'img', headerName: 'Image', width: 130, renderCell: (params: GridCellParams) => <img src={params.value as string} alt="user" width="50" /> }, // Assuming img is a URL
+    { field: 'img', headerName: 'Image', width: 130, renderCell: (params: GridCellParams) => <img className='w-[80px] h-full' src={params.value as string} alt="user" /> }, // Assuming img is a URL
     { field: 'name', headerName: 'Name', width: 130 },
     { field: 'address', headerName: 'Address', width: 130 },
     { field: 'job', headerName: 'Job', width: 130 },
@@ -53,13 +53,13 @@ const Users = () => {
         <div>
             <Header />
             <div className="px-4">
-                <Paper sx={{ height: 400, width: '100%' }}>
+                <Paper sx={{ height: 600, width: '100%' }} elevation={0}>
                     <DataGrid
                         rows={rows}
                         columns={columns}
                         initialState={{ pagination: { paginationModel } }}
                         pageSizeOptions={[5, 10]}
-                        checkboxSelection
+                        rowHeight={80}
                         sx={{ border: 0 }}
                     />
                 </Paper>

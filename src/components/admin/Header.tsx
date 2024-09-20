@@ -6,7 +6,7 @@ const Header = () => {
     const admin = getAdminData();
 
     return (
-        <header className="bg-white shadow-lg border-gray-300 border-2 px-6 py-8 flex items-center justify-end mb-10">
+        <header className="bg-white shadow-md border-gray-300 border-2 px-6 py-8 flex items-center justify-end mb-10">
             {location.pathname === "/admin/dashboard" && (
                 <section className="flex items-center gap-5 pr-10">
                     <button className="bg-white text-teal-700 py-2 px-8 rounded-lg border-2 border-teal-700 text-md font-semibold font-Poppins">

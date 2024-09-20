@@ -134,7 +134,7 @@ const Products = () => {
 
     const columns: GridColDef[] = [
         { field: 'id', headerName: 'No', width: 70 },
-        { field: 'img', headerName: 'Image', width: 130, renderCell: (params: GridCellParams) => <img className='w-[70px] h-full' src={params.value as string} alt="product-photo" /> }, // Assuming img is a URL
+        { field: 'img', headerName: 'Image', width: 130, renderCell: (params: GridCellParams) => <img className='w-[80px] h-full' src={params.value as string} alt="product-photo" /> }, // Assuming img is a URL
         { field: 'name', headerName: 'Product Name', width: 150 },
         { field: 'amount', headerName: 'Amount', width: 130 },
         { field: 'price', headerName: 'Price', width: 130 },
@@ -166,13 +166,12 @@ const Products = () => {
         <div>
             <Header />
             <div className="px-4">
-                <Paper sx={{ height: 600, width: '100%' }}>
+                <Paper sx={{ height: 600, width: '100%' }} elevation={0}>
                     <DataGrid
                         rows={rows}
                         columns={columns}
                         initialState={{ pagination: { paginationModel } }}
                         pageSizeOptions={[5, 10]}
-                        checkboxSelection
                         rowHeight={80}
                         sx={{ border: 0 }}
                         disableRowSelectionOnClick
