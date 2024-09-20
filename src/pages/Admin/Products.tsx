@@ -4,12 +4,13 @@ import Paper from '@mui/material/Paper';
 import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { FaTimes, FaTrashAlt } from 'react-icons/fa';
 import { HiPencil } from 'react-icons/hi2';
+import { useDeleteProductMutation, useEditProductMutation, useGetProductsQuery } from '../../app/features/ProductsSlice';
 import Header from "../../components/admin/Header";
-import { axiosInstance } from '../../config/axios.config';
 import { IProduct } from '../../interface';
-import { SubmitHandler, useForm } from 'react-hook-form';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -38,39 +39,29 @@ interface IFormInput {
 const paginationModel = { page: 0, pageSize: 5 };
 
 const Products = () => {
-    const [products, setProducts] = useState<IProduct[]>([]);
+    const { data } = useGetProductsQuery({ category: "" });
+    const [editProduct] = useEditProductMutation()
+    const [deleteProduct] = useDeleteProductMutation()
     const [editedProduct, setEditedProduct] = useState<IProduct | null>(null);
     const [openEditModel, setOpenEditModel] = React.useState(false);
     const [openDeleteModel, setOpenDeleteModel] = React.useState(false);
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<IFormInput>()
-    const onSubmit: SubmitHandler<IFormInput> = async (formData) => {
-        if (editedProduct) {
-            try {
-                const { data, status } = await axiosInstance.patch(`/product/update/${editedProduct._id}`, formData, {
-                    withCredentials: true,
-                })
-                if (status === 200) {
-                    setProducts(products.map(product => product._id === editedProduct._id ? { ...data.data.product } : product));
-                    setEditedProduct(null);
-                    handleCloseEditModel(); // Close the modal
-                }
-            } catch (error) {
-                console.error("Error editing product", error);
-            }
-
-        }
-    }
 
     // Handle Edit Product Model
     const handleOpenEditModel = () => setOpenEditModel(true);
-    const handleCloseEditModel = () => setOpenEditModel(false);
+    const handleCloseEditModel = () => {
+        setOpenEditModel(false);
+        setEditedProduct(null);
+    };
 
 
     // Handle Delet Product Model
     const handleOpenDeleteModel = () => setOpenDeleteModel(true);
-    const handleCloseDeleteModel = () => setOpenDeleteModel(false);
-
+    const handleCloseDeleteModel = () => {
+        setOpenDeleteModel(false)
+        setEditedProduct(null);
+    }
 
 
     const handleEditClick = (product: IProduct) => {
@@ -84,40 +75,44 @@ const Products = () => {
     };
 
 
-    const confirmDeletion = () => {
+    const onEditSubmit: SubmitHandler<IFormInput> = async (formData) => {
         if (editedProduct) {
-            axiosInstance.delete(`/product/delete/${editedProduct._id}`, {
-                withCredentials: true,
-            })
-                .then((response) => {
-                    if (response.status === 204) {
-                        setProducts(products.filter((product) => product._id !== editedProduct._id));
-                        setEditedProduct(null);
-                        handleCloseDeleteModel(); // Close the modal
-                    }
+            try {
+                await editProduct({
+                    id: editedProduct._id,
+                    product: formData
                 })
-                .catch((error) => {
-                    console.error("Error deleting product", error);
-                });
+                toast.success("Product edited successfully", {
+                    duration: 2000,
+                    position: "top-right"
+                })
+                handleCloseEditModel();
+            } catch (error) {
+                toast.error("Problem with edit product", {
+                    duration: 2000,
+                    position: "top-right"
+                })
+            }
         }
     }
 
-    const getAllUsers = async () => {
-        try {
-            const { data, status } = await axiosInstance.get("/product/all", {
-                withCredentials: true,
-            });
-            if (status === 200) {
-                setProducts(data.data.products);
+    const confirmDeletion = async () => {
+        if (editedProduct) {
+            try {
+                await deleteProduct({ id: editedProduct._id })
+                toast.success("Product deleted successfully", {
+                    duration: 2000,
+                    position: "top-right"
+                })
+                handleCloseDeleteModel();
+            } catch (error) {
+                toast.error("Problem with delete product", {
+                    duration: 2000,
+                    position: "top-right"
+                })
             }
-        } catch (error) {
-            console.error("Error fetching products", error);
         }
-    };
-
-    useEffect(() => {
-        getAllUsers();
-    }, []);
+    }
 
     useEffect(() => {
         if (editedProduct) {
@@ -151,7 +146,7 @@ const Products = () => {
     ];
 
     // Convert the users to the required rows format
-    const rows = products.map((product, index) => ({
+    const rows = data?.data?.products.map((product: IProduct, index: number) => ({
         id: index + 1,
         img: product.photo[0] || '',
         name: product.name,
@@ -189,7 +184,7 @@ const Products = () => {
                             <button className='text-gray-300 text-lg p-1 rounded-sm hover:text-gray-500 hover:bg-gray-100' onClick={handleCloseEditModel}><FaTimes /></button>
                         </div>
                         <div className='modal-body'>
-                            <form action="" className='space-y-5' onSubmit={handleSubmit(onSubmit)}>
+                            <form action="" className='space-y-5' onSubmit={handleSubmit(onEditSubmit)}>
                                 <div className='form-row'>
                                     <label htmlFor="phone" className="block text-teal-800 text-lg font-bold mb-3 text-right">اسم المنتج</label>
                                     <input
