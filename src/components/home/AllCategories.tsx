@@ -1,19 +1,6 @@
 import { useDispatch } from "react-redux";
 import { setCategory } from "../../app/features/marketSlice";
-
-const sectionsData = [
-    { image: 'images/animal.png', title: 'منتجات حيوانية' },
-    { image: 'images/veg.png', title: 'خضار' },
-    { image: 'images/fruit.png', title: 'فاكهة' },
-    { image: 'images/crops.png', title: 'محاصيل' },
-    { image: 'images/all.png', title: 'الكل' },
-    { image: 'images/med.png', title: 'أدوية' },
-    { image: 'images/tools.png', title: 'أدوات زراعية' },
-    { image: 'images/equip.png', title: 'معدات زراعية' },
-    { image: 'images/milk.png', title: 'منتجات ألبان' },
-    { image: 'images/seeds.png', title: 'تقاوي' },
-];
-
+import { sectionsData } from "../../data";
 
 const AllCategories = () => {
     const dispatch = useDispatch()
@@ -40,7 +27,7 @@ const AllCategories = () => {
                 <img
                     className="w-[50px] h-[40px] mx-auto mt-8"
                     src={section.image}
-                    alt={`Icon for ${section.title}`}
+                    alt={section.title}
                 />
             </div>
             <p className="text-teal-700 text-[15px] text-center mt-2">{section.title}</p>
