@@ -72,7 +72,7 @@ const ProductCard = ({ product }: IProps) => {
                 </div>
                 <Link to={`/product/${product["_id"]}`}>
                     <img
-                        className="planet-image h-[255px] mx-auto rounded-lg"
+                        className="planet-image w-full h-[255px] rounded-lg"
                         src={photo[0]}
                         alt={name}
                     />

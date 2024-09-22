@@ -19,10 +19,10 @@ export const productsSlice = createApi({
                 return `/one/${arg.id}`;
             },
         }),
-        addProduct: builder.mutation<any, { id: string | undefined, product: unknown }>({
+        addProduct: builder.mutation<any, { product: unknown }>({
             query: (arg) => ({
                 url: `/addOne`,
-                method: 'Post',
+                method: 'POST',
                 body: arg.product,
                 credentials: "include"
             }),

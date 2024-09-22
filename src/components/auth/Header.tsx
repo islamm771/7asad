@@ -1,5 +1,5 @@
 import { BiChevronLeft } from "react-icons/bi";
-import { RiDiscountPercentFill } from "react-icons/ri";
+import { RiDiscountPercentFill, RiEditBoxLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
@@ -15,6 +15,12 @@ const Header = () => {
                     <p className="text-white text-xl flex flex-row-reverse items-center gap-1">
                         <RiDiscountPercentFill />
                         العروض الخاصة
+                    </p>
+                )}
+                {location.pathname.includes("add-product") && (
+                    <p className="text-white text-xl flex flex-row-reverse items-center gap-1">
+                        <RiEditBoxLine />
+                        اضافة منتج
                     </p>
                 )}
                 {location.pathname.includes("/login") && (

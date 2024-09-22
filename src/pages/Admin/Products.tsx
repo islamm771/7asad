@@ -32,6 +32,7 @@ interface IFormInput {
     place: string
     amount: number,
     price: number,
+    photo: string[]
 }
 
 
@@ -152,8 +153,8 @@ const Products = () => {
         name: product.name,
         amount: product.amount,
         price: product.price,
-        sellerName: product.user.name,
-        phoneNumber: product.user.phone,
+        sellerName: product.user?.name,
+        phoneNumber: product.user?.phone,
         action: product
     }));
 

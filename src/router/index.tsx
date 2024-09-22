@@ -19,6 +19,7 @@ import AdminLogin from "../pages/Admin/Login";
 import AdminDashBoard from "../pages/Admin/Dashboard";
 import Users from "../pages/Admin/Users";
 import Products from "../pages/Admin/Products";
+import AddProduct from "../pages/AddProduct";
 
 
 const user = getUserData();
@@ -56,6 +57,8 @@ export const router = createBrowserRouter(createRoutesFromElements(
         </Route>
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/all-special-offers" element={<AllSpecialOffers />} />
+        <Route path="/add-product" element={<AddProduct />} />
+
 
         {/* Auth Routes */}
         <Route path="/auth" element={<AuthLayout />}>

@@ -1,3 +1,4 @@
+
 export interface IUser {
     _id: string;
     name: string;
@@ -16,7 +17,7 @@ export interface IUser {
 }
 
 export interface IProduct {
-    _id: string;
+    _id?: string;
     name: string;
     description: string;
     photo: string[];
@@ -27,9 +28,9 @@ export interface IProduct {
     discount: number;
     priceAfterDiscount: number;
     categoryName: string;
-    user: IUser;
-    date: string;
-    __v: number;
+    user?: IUser;
+    date?: string;
+    __v?: number;
 }
 
 export interface IReview {
@@ -68,4 +69,21 @@ export interface IFavorite {
 
 export interface IError {
     message: string;
+}
+
+
+export interface IProductCategories {
+    label: string;
+    id: string;
+    icon: React.ElementType;
+}
+
+
+export interface IAddProductForm {
+    label: string,
+    id: string,
+    name: "name" | "price" | "amount" | "description" | "discount" | "priceAfterDiscount" | "place",
+    type: string,
+    placeholder?: string,
+    required?: boolean,
 }
