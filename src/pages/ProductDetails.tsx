@@ -6,7 +6,6 @@ import Header from "../components/productDetails/Header"
 import Reviews from "../components/productDetails/Reviews"
 
 const ProductDetails = () => {
-
     const { id } = useParams()
     const { isLoading, data } = useGetProductQuery({ id: id })
     const [activeTab, setActiveTab] = useState('details');
@@ -27,6 +26,7 @@ const ProductDetails = () => {
             </div>
         )
     }
+
     return (
         <div className="">
             <Header />

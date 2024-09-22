@@ -119,6 +119,7 @@ const AddProduct = () => {
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        console.log(formData)
         try {
             await addProduct({ product: formData })
             toast.success("Product added successfully", {

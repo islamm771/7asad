@@ -9,9 +9,6 @@ import { TfiSpray } from "react-icons/tfi";
 import { MdOutlineAgriculture } from "react-icons/md";
 
 
-
-
-
 export const sectionsData = [
     { image: '/images/animal.png', title: 'منتجات حيوانية' },
     { image: '/images/veg.png', title: 'خضار' },
@@ -21,7 +18,7 @@ export const sectionsData = [
     { image: '/images/med.png', title: 'أدوية' },
     { image: '/images/tools.png', title: 'أدوات زراعية' },
     { image: '/images/equip.png', title: 'معدات زراعية' },
-    { image: '/images/milk.png', title: 'منتجات ألبان' },
+    { image: '/images/milk.png', title: 'منتجات البان' },
     { image: '/images/seeds.png', title: 'تقاوي' },
 ];
 
@@ -57,12 +54,12 @@ export const ProductCategories: IProductCategories[] = [
         icon: LuAxe,
     },
     {
-        label: "فاكهه",
+        label: "فاكهة",
         id: "fruit",
         icon: GiStrawberry,
     },
     {
-        label: "أدويه",
+        label: "أدوية",
         id: "medicines",
         icon: CiMedicalCase,
     },
@@ -71,12 +68,11 @@ export const ProductCategories: IProductCategories[] = [
         id: "animals",
         icon: FaCow,
     },
-    {
-        label: "مبيجات وأسمدة",
-        id: "pesticides",
-        icon: TfiSpray,
-    },
-    // Add more categories as needed
+    // {
+    //     label: "مبيدات وأسمدة",
+    //     id: "pesticides",
+    //     icon: TfiSpray,
+    // },
 ];
 
 
