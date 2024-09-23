@@ -5,7 +5,7 @@ import { LuMilk } from "react-icons/lu";
 import { LuAxe } from "react-icons/lu";
 import { FaCow } from "react-icons/fa6";
 import { CiMedicalCase } from "react-icons/ci";
-import { TfiSpray } from "react-icons/tfi";
+// import { TfiSpray } from "react-icons/tfi";
 import { MdOutlineAgriculture } from "react-icons/md";
 
 

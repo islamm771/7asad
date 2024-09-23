@@ -17,7 +17,7 @@ export interface IUser {
 }
 
 export interface IProduct {
-    _id?: string;
+    _id: string;
     name: string;
     description: string;
     photo: string[];
@@ -28,10 +28,24 @@ export interface IProduct {
     discount: number;
     priceAfterDiscount: number;
     categoryName: string;
-    user?: IUser;
-    date?: string;
-    __v?: number;
+    user: IUser;
+    date: string;
+    __v: number;
 }
+
+export interface IAddProduct {
+    name: string;
+    description: string;
+    photo: string[];
+    price: number;
+    amount: number;
+    place: string;
+    OneItemPrice: number;
+    discount: number;
+    priceAfterDiscount: number;
+    categoryName: string;
+}
+
 
 export interface IReview {
     _id: string;

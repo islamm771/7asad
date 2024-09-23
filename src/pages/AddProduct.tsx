@@ -1,19 +1,19 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { TbCameraPlus } from "react-icons/tb";
-import { FaPlus } from "react-icons/fa";
-import Input from "../components/ui/Input";
-import { AddProductForm, ProductCategories } from "../data";
-import InputCheckBox from "../components/ui/InputCheckBox";
-import Header from "../components/auth/Header";
-import { useAddProductMutation } from "../app/features/ProductsSlice";
-import { IProduct } from "../interface";
-import { axiosInstance } from "../config/axios.config";
 import toast from "react-hot-toast";
+import { FaPlus } from "react-icons/fa";
+import { TbCameraPlus } from "react-icons/tb";
+import { useAddProductMutation } from "../app/features/ProductsSlice";
+import Header from "../components/auth/Header";
+import Input from "../components/ui/Input";
+import InputCheckBox from "../components/ui/InputCheckBox";
+import { axiosInstance } from "../config/axios.config";
+import { AddProductForm, ProductCategories } from "../data";
+import { IAddProduct } from "../interface";
 
 const AddProduct = () => {
     const [selectedCategory, setSelectedCategory] = useState("");
     const [selectedImages, setSelectedImages] = useState<(File | null)[]>([null]);
-    const [formData, setFormData] = useState<IProduct>({
+    const [formData, setFormData] = useState<IAddProduct>({
         name: "",
         description: "",
         price: 0,
@@ -126,6 +126,19 @@ const AddProduct = () => {
                 duration: 2000,
                 position: "top-right"
             })
+            setFormData({
+                name: "",
+                description: "",
+                price: 0,
+                amount: 0,
+                photo: [],
+                place: "",
+                OneItemPrice: 0,
+                discount: 0,
+                priceAfterDiscount: 0,
+                categoryName: "",
+            })
+            setSelectedImages([null])
         } catch (error) {
             console.log(error)
         }
@@ -184,9 +197,8 @@ const AddProduct = () => {
                             ))}
                             {/* Plus icon for adding more image containers */}
                             <div
-                                className="w-full h-[140px] bg-zinc-300 rounded-[3px] flex items-center justify-center relative"
+                                className="w-full h-[140px] bg-zinc-300 rounded-[3px] flex items-center justify-center relative  cursor-pointer"
                                 onClick={addMoreImageContainers}
-                                style={{ cursor: "pointer" }}
                             >
                                 <FaPlus className="text-5xl " />
                             </div>
