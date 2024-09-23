@@ -1,10 +1,11 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { FaBookmark, FaUser } from "react-icons/fa"
 import { FaLocationDot } from "react-icons/fa6"
 import { RiDeleteBin6Line } from "react-icons/ri"
 import { useRemoveFavouriteMutation } from "../app/features/FavouriteSlice"
 import { IFavorite } from "../interface"
 import toast from "react-hot-toast"
+import { axiosInstance } from "../config/axios.config"
 
 interface IProps {
     fav: IFavorite,
@@ -12,8 +13,15 @@ interface IProps {
 
 const FavCard = ({ fav }: IProps) => {
     const [removeFavourite] = useRemoveFavouriteMutation();
-    const { product } = fav
+    const { product } = fav;
     const [quantity, setQuantity] = useState<number>(1);
+    const [userName, setUserName] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (product.user) {
+            handleGetUser(product.user);
+        }
+    }, [product.user]);
 
     const handleRemoveFromFav = (id: string) => {
         removeFavourite({ favouriteId: id })
@@ -39,6 +47,15 @@ const FavCard = ({ fav }: IProps) => {
         }
     }
 
+    const handleGetUser = async (id: string) => {
+        try {
+            const { data } = await axiosInstance.get(`/auth/getUser/${id}`);
+            setUserName(data.data.user.name); // Set the fetched user name
+        } catch (error) {
+            console.error("Failed to fetch user:", error);
+        }
+    }
+
     return (
         <div className="fav-card flex flex-row-reverse gap-5 md:gap-8 flex-wrap">
             <div className="w-[100px] h-[100px] md:w-[200px] md:h-[200px]">
@@ -50,7 +67,7 @@ const FavCard = ({ fav }: IProps) => {
                     <ul>
                         <li className="flex flex-row-reverse text-xl text-teal-950">
                             <FaUser className="text-amber-500 ml-3" />
-                            {product.user}
+                            {userName ? userName : "Loading..."} {/* Display userName */}
                         </li>
                         <li className="flex flex-row-reverse text-xl text-teal-950">
                             <FaLocationDot className="text-yellow-300 mt-1 ml-3" />
@@ -85,13 +102,10 @@ const FavCard = ({ fav }: IProps) => {
                             +
                         </button>
                     </div>
-
-
                 </div>
             </div>
         </div>
     )
 }
-
 
 export default FavCard

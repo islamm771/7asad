@@ -78,7 +78,7 @@ export const router = createBrowserRouter(createRoutesFromElements(
                 </ProtectedRoute>
             } />
             <Route path="profile-complete" element={
-                <ProtectedRoute isAllowed={!user} path="/">
+                <ProtectedRoute isAllowed={user} path="/">
                     <ProfileComplete />
                 </ProtectedRoute>
             } />

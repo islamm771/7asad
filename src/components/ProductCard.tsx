@@ -1,9 +1,8 @@
+import toast from "react-hot-toast";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { GrCart } from "react-icons/gr";
 import { Link, useNavigate } from "react-router-dom";
 import { useAddFavouriteMutation, useGetFavouritesQuery, useRemoveFavouriteMutation } from "../app/features/FavouriteSlice";
 import { IFavorite, IProduct } from "../interface";
-import toast from "react-hot-toast";
 
 interface IProps {
     product: IProduct,
@@ -52,10 +51,6 @@ const ProductCard = ({ product }: IProps) => {
                 });
             });
     };
-    const handleAddToCart = async () => {
-        console.log("add to cart")
-    }
-
     return (
         <div className="product-card">
             <div className="bg-white rounded-[10px] box-shadow border-2 border-teal-700 p-4 relative">
@@ -77,7 +72,7 @@ const ProductCard = ({ product }: IProps) => {
                         alt={name}
                     />
                 </Link>
-                <div className="flex items-center justify-between mt-4">
+                <div className="flex flex-row-reverse items-center justify-between mt-4">
                     <p className="count text-teal-700 text-[18px] font-medium">
                         العدد: {amount}
                     </p>
@@ -94,7 +89,7 @@ const ProductCard = ({ product }: IProps) => {
                 <p className="text-right text-slate-600 text-[14px] font-bold mb-2">
                     احصل عليه يوم: {date.slice(0, date.indexOf("T"))}
                 </p>
-                <div className="flex items-center gap-[20px] mt-6">
+                <div className="flex items-center justify-between mt-6">
                     <button
                         type="button"
                         className="btn w-[120px] h-[35px] bg-teal-700 rounded-[5px] text-white"
@@ -102,12 +97,9 @@ const ProductCard = ({ product }: IProps) => {
                     >
                         احصل عليها
                     </button>
-                    <div className="flex items-center justify-between flex-1">
-                        <button onClick={handleAddToCart}><GrCart className="text-teal-700 text-2xl" /></button>
-                        <p className="text-teal-700 text-[18px] font-medium mb-0">
-                            {price} طن/جم
-                        </p>
-                    </div>
+                    <p className="text-teal-700 text-[18px] font-medium mb-0">
+                        {price} طن/جم
+                    </p>
                 </div>
             </div>
         </div>

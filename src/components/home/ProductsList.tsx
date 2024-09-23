@@ -32,7 +32,7 @@ const ProductsList = () => {
             </div>
 
             {data?.data?.products.length > 0 ? (
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" dir="rtl">
                     {data?.data?.products.map((product: IProduct, index: number) => (
                         <ProductCard
                             product={product}
