@@ -57,7 +57,12 @@ export const router = createBrowserRouter(createRoutesFromElements(
         </Route>
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/all-special-offers" element={<AllSpecialOffers />} />
-        <Route path="/add-product" element={<AddProduct />} />
+        <Route path="/add-product" element={
+            <ProtectedRoute isAllowed={user} path="/auth/login">
+                <AddProduct />
+            </ProtectedRoute>
+
+        } />
 
 
         {/* Auth Routes */}
