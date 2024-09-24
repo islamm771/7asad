@@ -19,9 +19,7 @@ const ProductDetails = () => {
             <div className="product-details-loading">
                 <Header />
                 <div className="container">
-                    <div>
-                        <h3 className="text-3xl font-semibold py-12">Loading...</h3>
-                    </div>
+                    <h3 className="text-3xl font-semibold py-12">Loading...</h3>
                 </div>
             </div>
         )
