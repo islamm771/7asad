@@ -6,8 +6,6 @@ interface IProps {
 }
 
 const UserReview = ({ review: { createdAt, review: reviewText, rating, user } }: IProps) => {
-    // const  = review
-
     return <div className='user-review text-right flex flex-row-reverse gap-8 flex-wrap'>
         <div>
             <img className='w-20 h-w-20 rounded-full'

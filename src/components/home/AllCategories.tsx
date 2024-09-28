@@ -11,7 +11,7 @@ const AllCategories = () => {
         if (ele) {
             setTimeout(() => {
                 window.scrollTo({
-                    top: ele.offsetTop,
+                    top: ele.offsetTop - 30,
                 });
             }, 250);
         }
@@ -36,7 +36,7 @@ const AllCategories = () => {
     return (
         <div className="container">
             <h1 className="text-teal-950 text-[30px] font-medium text-right mt-16 mb-8">الأقسام</h1>
-            <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-[15px]">
+            <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-[15px]" dir="rtl">
                 {sectionsData.map(renderSection)}
             </div>
         </div>

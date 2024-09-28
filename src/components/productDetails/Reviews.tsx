@@ -1,4 +1,4 @@
-import { FormEvent, Fragment, useState } from 'react';
+import { FormEvent, Fragment, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaStar } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -26,7 +26,7 @@ const Reviews = () => {
         rating: 0,
         review: ""
     })
-
+    const [overallRating, setOverallRating] = useState("0");
     const [hover, setHover] = useState(0);
 
     const handleRatingChange = (rate: number) => {
@@ -63,6 +63,13 @@ const Reviews = () => {
     }
 
 
+    useEffect(() => {
+        if (data) {
+            const allRatings = data.data.review.reduce((acc: number, review: IReview) => (acc + review.rating), 0)
+            setOverallRating((allRatings / data.data.review.length).toFixed(1));
+        }
+    }, [data]);
+
 
     if (isLoading) {
         return <div>
@@ -73,25 +80,20 @@ const Reviews = () => {
     return (
         <div className="md:px-12">
             <div className="flex items-center flex-col">
-                <p className="text-black text-3xl font-medium mb-2 mt-12">{2.4}</p>
+                <p className="text-black text-3xl font-medium mb-2 mt-12">{overallRating}</p>
                 <div className='flex items-center'>
                     {[...Array(5)].map((_, index) => {
                         return (
                             <FaStar
                                 key={index}
                                 size={28}
-                                className={`me-1 ${Math.round(2.4) >= (index + 1) ? 'text-yellow-300' : 'text-gray-300'}`}
-                            // onClick={() => setRating(ratingValue)}
-                            // onMouseEnter={() => setHover(ratingValue)}
-                            // onMouseLeave={() => setHover(0)}
-                            // role="button"
-                            // aria-label={`Rate ${ratingValue} stars`}
+                                className={`me-1 ${Math.round(parseInt(overallRating)) >= (index + 1) ? 'text-yellow-300' : 'text-gray-300'}`}
                             />
                         );
                     })}
                 </div>
                 <div className="flex items-center mb-12 mt-4 ml-2">
-                    <p className="text-lg text-teal-950 font-normal">بناءا علي {data.data.review.length} تقييم </p>
+                    <p className="text-lg text-teal-950 font-normal">بناءا علي {data?.data?.review.length} تقييم </p>
                 </div>
             </div>
 
@@ -113,7 +115,7 @@ const Reviews = () => {
             <hr className="border-b border-gray-300 my-4 mt-8" />
 
             <div className="reviews mt-8">
-                {data.data.review?.map((review: IReview, index: number) => (
+                {data?.data.review?.map((review: IReview, index: number) => (
                     <Fragment key={index}>
                         <UserReview review={review} />
                         <hr className="border-b border-gray-300 my-4" />

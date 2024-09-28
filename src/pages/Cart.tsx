@@ -33,7 +33,7 @@ const Cart = () => {
     const { isLoading } = useGetCartQuery({})
 
     if (isLoading) return <div className="container pt-16">
-        <h3 className="text-center text-medium text-2xl">... جاري تحميل المفضلة</h3>
+        <h3 className="text-center text-medium text-2xl">... جاري تحميل السلة</h3>
     </div>
     return (
         <div className="container py-16">
