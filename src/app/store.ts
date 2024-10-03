@@ -1,12 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { productsSlice } from './features/ProductsSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import loginSlice from './features/LoginSlice'
 import marketSlice from './features/marketSlice'
+import { productsSlice } from './features/ProductsSlice'
 import { reviewsSlice } from './features/ReviewsSlice'
 import { favouriteSlice } from './features/FavouriteSlice'
 import { cartSlice } from './features/CartSlice'
 
 export const store = configureStore({
     reducer: {
+        login: loginSlice,
         market: marketSlice,
         [productsSlice.reducerPath]: productsSlice.reducer,
         [reviewsSlice.reducerPath]: reviewsSlice.reducer,
@@ -22,3 +25,6 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
+
+export const useAppSelector = useSelector.withTypes<RootState>()
+export const useAppDispatch = useDispatch.withTypes<AppDispatch>()

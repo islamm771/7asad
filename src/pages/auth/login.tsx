@@ -1,12 +1,11 @@
-import { AxiosError } from 'axios';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { FaLock } from 'react-icons/fa';
 import { FaPhoneFlip } from 'react-icons/fa6';
 import { IoEyeOffSharp, IoEyeSharp } from 'react-icons/io5';
-import { Link, useNavigate } from 'react-router-dom';
-import { axiosInstance } from '../../config/axios.config';
-import { IError } from '../../interface';
+import { Link } from 'react-router-dom';
+import { userLogin } from '../../app/features/LoginSlice';
+import { useAppDispatch, useAppSelector } from '../../app/store';
 
 
 interface IFormInput {
@@ -17,35 +16,12 @@ interface IFormInput {
 
 
 const Login = () => {
-    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const { isLoading, error } = useAppSelector(state => state.login)
     const [showPassword, setShowPassword] = useState(false);
-    const [error, setError] = useState<string>();
-    const [isLoading, setIsLoading] = useState(false)
     const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>()
     const onSubmit: SubmitHandler<IFormInput> = async (formData) => {
-        setIsLoading(true)
-        setError("")
-        try {
-            const { data } = await axiosInstance.post("/auth/login", formData, {
-                withCredentials: true,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            // Extract the user data from the response
-            const { user } = data.data;
-            console.log(user);
-            localStorage.setItem('user-info', JSON.stringify(user));
-            setTimeout(() => {
-                navigate('/');
-            }, 1000)
-        } catch (error) {
-            const errorObj = error as AxiosError<IError>
-            console.log(errorObj.response?.data.message)
-            setError(errorObj.response?.data.message)
-        } finally {
-            setIsLoading(false)
-        }
+        dispatch(userLogin(formData))
     }
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -105,9 +81,11 @@ const Login = () => {
                         <p className='text-sm text-red-500'>{errors.password?.message}</p>
                     </div>
 
-                    {error && <p className='text-sm text-red-500 text-center mb-2'>
-                        {error}
-                    </p>}
+                    {error && (
+                        <p className='text-sm text-red-500 text-center mb-2'>
+                            {error}
+                        </p>
+                    )}
 
                     <div className="mb-10 text-left">
                         <a href="/forgot-password" className="text-zinc-500 text-lg  underline ml-20 ">

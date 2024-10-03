@@ -7,6 +7,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { axiosInstance } from "../config/axios.config";
 import { getUserData } from "../data";
 import { IProduct } from "../interface";
+import CookieService from "../services/CookieService";
 
 const Navbar = () => {
     const { pathname } = useLocation();
@@ -32,7 +33,6 @@ const Navbar = () => {
     const handleSearch = async () => {
         try {
             const { data } = await axios.get(`https://sevenasad.onrender.com/product/search?search=${searchValue}`)
-            console.log(data.data.products)
             setSearchResults(data.data.products)
         } catch (error) {
             console.log(error)
@@ -45,6 +45,9 @@ const Navbar = () => {
             if (status === 200) {
                 // Remove localStorage item
                 localStorage.removeItem("user-info");
+
+                // Remove cookie
+                CookieService.remove("jwt")
 
                 // Show success message
                 toast.success("تم تسجيل الخروج بنجاح", {
