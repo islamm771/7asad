@@ -21,7 +21,6 @@ import Users from "../pages/Admin/Users";
 import Products from "../pages/Admin/Products";
 import AddProduct from "../pages/AddProduct";
 
-
 const user = getUserData();
 
 

@@ -1,10 +1,9 @@
-import { IAddProductForm, IProductCategories } from "../interface";
-import { GiCorn, GiStrawberry, GiTomato } from "react-icons/gi";
-import { TbSeeding } from "react-icons/tb";
-import { LuMilk } from "react-icons/lu";
-import { LuAxe } from "react-icons/lu";
-import { FaCow } from "react-icons/fa6";
 import { CiMedicalCase } from "react-icons/ci";
+import { FaCow } from "react-icons/fa6";
+import { GiCorn, GiStrawberry, GiTomato } from "react-icons/gi";
+import { LuAxe, LuMilk } from "react-icons/lu";
+import { TbSeeding } from "react-icons/tb";
+import { IAddProductForm, IProductCategories } from "../interface";
 // import { TfiSpray } from "react-icons/tfi";
 import { MdOutlineAgriculture } from "react-icons/md";
 
@@ -138,17 +137,15 @@ export const AddProductForm: IAddProductForm[] = [
 
 
 export const getUserData = () => {
-    const userDataString = localStorage.getItem("user-info")
-    const userData = userDataString ? JSON.parse(userDataString) : null
-
-    return userData
+    const userDataString = localStorage.getItem("persist:root")
+    const persistData = userDataString ? JSON.parse(userDataString) : null
+    const userData = JSON.parse(persistData?.login)
+    return userData.data
 }
-
-
 
 export const getAdminData = () => {
     const adminDataString = localStorage.getItem("admin-info")
     const adminData = adminDataString ? JSON.parse(adminDataString) : null
-
     return adminData
 }
+
