@@ -7,7 +7,7 @@ const Profile = () => {
     const navigate = useNavigate()
     const user = getUserData();
     const handleEditProfile = () => {
-        navigate("/auth/profile-complete", { state: { user } })
+        navigate("/auth/profile-complete")
     }
     return (
         <div className="container pt-28 pb-16">
@@ -28,10 +28,10 @@ const Profile = () => {
                         className="text-amber-500 text-xl ml-3 mb-3"
                     />
                 </div>
-                <div className="text-right flex justify-end items-center mr-6 lg:mr-72">
+                <div className="text-right flex justify-end items-center mt-2">
                     <h2 className="text-zinc-500 text-xl font-bold">{user.role}</h2>
                     <FaCircle
-                        className="text-green-400 text-[10px] mt-1 ml-2"
+                        className="text-green-400 text-[10px] mr-6 ml-4"
                     />
                 </div>
 
@@ -42,23 +42,23 @@ const Profile = () => {
                         {user.phone}
                     </h4>
                     <FaPhone
-                        className="text-yellow-400 text-2xl ml-4 mr-6 "
+                        className="text-yellow-400 text-2xl mr-6 ml-4"
                     />
                 </div>
                 <div className="flex justify-end items-center mt-6">
-                    <h4 className="text-teal-700 text-2xl font-medium inline">
-                        {user.country}
+                    <h4 className="text-teal-700 text-right text-xl lg:text-2xl font-medium">
+                        {user.country ? user.country : "لا يوجد مدينة"}
                     </h4>
                     <FaLocationDot
                         className="text-yellow-400 text-2xl mr-6 ml-4"
                     />
                 </div>
                 <div className="flex justify-end items-center mt-6">
-                    <h4 className="text-teal-700 text-right text-xl lg:text-2xl font-medium inline">
-                        {user.Educationaldegree}
+                    <h4 className="text-teal-700 text-right text-xl lg:text-2xl font-medium">
+                        {user.Educationaldegree ? user.Educationaldegree : "لا يوجد مدينة"}
                     </h4>
                     <FaGraduationCap
-                        className="text-yellow-400 text-2xl ml-4 mr-4"
+                        className="text-yellow-400 text-2xl mr-6 ml-4"
                     />
                 </div>
             </div>

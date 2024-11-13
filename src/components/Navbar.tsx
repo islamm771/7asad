@@ -4,17 +4,15 @@ import toast from "react-hot-toast";
 import { FaBarcode, FaBell, FaSearch, FaShoppingCart, FaStore, FaUser } from "react-icons/fa";
 import { MdOutlineFavorite } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../app/store";
 import { axiosInstance } from "../config/axios.config";
 import { IProduct } from "../interface";
 import CookieService from "../services/CookieService";
-import { setUserLogout } from "../app/features/LoginSlice";
+import { getUserData } from "../data";
 
 const Navbar = () => {
+    const userData = getUserData()
     const { pathname } = useLocation();
     const navigate = useNavigate()
-    const dispatch = useAppDispatch();
-    const { data } = useAppSelector(state => state.login)
     const [searchVisible, setSearchVisible] = useState(false);
     const [searchValue, setSearchValue] = useState("");
     const [searchResults, setSearchResults] = useState<IProduct[]>([])
@@ -45,7 +43,8 @@ const Navbar = () => {
         try {
             const { status } = await axiosInstance.get("/auth/logout")
             if (status === 200) {
-                dispatch(setUserLogout())
+                // Remove localStorage item
+                localStorage.removeItem("user-info");
 
                 // Remove cookie
                 CookieService.remove("jwt")
@@ -55,6 +54,10 @@ const Navbar = () => {
                     duration: 2000,
                     position: 'top-right',
                 });
+                // Reload page after 1.2 seconds
+                setTimeout(() => {
+                    location.reload();
+                }, 1200);
             }
         } catch (error) {
             console.log(error);
@@ -162,7 +165,7 @@ const Navbar = () => {
                     )}
                 </nav>
                 <div className="flex items-center gap-8">
-                    {data ? (
+                    {userData ? (
                         <button className="text-white text-[14px]" onClick={handleLogout}>
                             تسجيل خروج
                         </button>

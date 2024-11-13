@@ -6,6 +6,7 @@ import { IoEyeOffSharp, IoEyeSharp } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { userLogin } from '../../app/features/LoginSlice';
 import { useAppDispatch, useAppSelector } from '../../app/store';
+import Button from '../../components/ui/Button';
 
 
 interface IFormInput {
@@ -82,7 +83,7 @@ const Login = () => {
                     </div>
 
                     {error && (
-                        <p className='text-sm text-red-500 text-center mb-2'>
+                        <p className='text-sm text-red-500 text-center font-semibold mb-2'>
                             {error}
                         </p>
                     )}
@@ -94,16 +95,16 @@ const Login = () => {
                     </div>
 
                     <div className="flex items-center justify-center">
-                        <button
-                            className="px-16 py-2 bg-teal-700 text-white rounded-full font-bold text-lg cursor-pointer"
+                        <Button
                             type="submit"
+                            disabled={isLoading}
                         >
                             {isLoading ? '... جاري تسجيل دخول' : 'تسجيل دخول'}
-                        </button>
+                        </Button>
                     </div>
                     <div className="flex items-center justify-center mt-6 ">
                         <Link to="/auth/register" className="text-teal-700 ml-2 mr-2 font-bold inline-block border-b-2 border-teal-700"> إنشاء حساب</Link>
-                        <p className="text-black  ">لديك حساب؟  </p>
+                        <p className="text-black  ">ليس لديك حساب؟  </p>
                     </div>
                 </form>
             </div>

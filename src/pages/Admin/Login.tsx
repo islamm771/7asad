@@ -62,7 +62,7 @@ const AdminLogin = () => {
                             {errors.phone && <p className="text-red-600 text-[12px] font-medium">{errors.phone.message}</p>}
                         </div>
                         <div className="pb-5">
-                            <input type="Enter your password"
+                            <input type="password"
                                 className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-teal-500 focus:ring-1"
                                 placeholder="Enter your password"
                                 {...register("password", {

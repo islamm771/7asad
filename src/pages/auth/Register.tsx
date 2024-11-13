@@ -4,10 +4,11 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { FaLock, FaUser } from "react-icons/fa";
 import { FaPhoneFlip } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "../../components/ui/Button";
 import { axiosInstance } from "../../config/axios.config";
 import { IError } from "../../interface";
+import toast from "react-hot-toast";
 
 
 interface IFormInput {
@@ -22,8 +23,6 @@ interface IFormInput {
 const Register = () => {
     const [error, setError] = useState<string>();
     const [isloading, setIsLoading] = useState(false)
-    const navigate = useNavigate();
-    // const [showPassword, setShowPassword] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>()
     const onSubmit: SubmitHandler<IFormInput> = async (formData) => {
         setIsLoading(true);
@@ -46,9 +45,13 @@ const Register = () => {
             const { user } = data.data;
             console.log(user);
             localStorage.setItem('user-info', JSON.stringify(user));
+            toast.success("تم انشاء حساب بنجاح", {
+                duration: 2000,
+                position: 'top-right',
+            });
             setTimeout(() => {
-                navigate('/profile-complete', { state: { user } });
-            }, 2000)
+                window.location.replace('/auth/profile-complete');
+            }, 1500);
         } catch (error) {
             const errorObj = error as AxiosError<IError>
             console.log(errorObj.response?.data.message)
@@ -142,13 +145,13 @@ const Register = () => {
                         {errors.passwordConfirm && <p className="text-red-600 text-[14px] font-medium">{errors.passwordConfirm.message}</p>}
                     </div>
 
-                    {error && <p className='text-sm text-red-500 text-center mb-2'>
+                    {error && <p className='text-sm text-red-500 text-center font-semibold mb-2'>
                         {error}
                     </p>}
 
                     {/* Submit Button */}
                     <div className="flex items-center justify-center">
-                        <Button type="submit">
+                        <Button type="submit" disabled={isloading}>
                             {isloading ? '... جاري انشاء حساب' : 'انشاء حساب'}
                         </Button>
                     </div>

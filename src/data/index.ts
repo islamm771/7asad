@@ -137,10 +137,9 @@ export const AddProductForm: IAddProductForm[] = [
 
 
 export const getUserData = () => {
-    const userDataString = localStorage.getItem("persist:root")
-    const persistData = userDataString ? JSON.parse(userDataString) : null
-    const userData = JSON.parse(persistData?.login)
-    return userData.data
+    const userDataString = localStorage.getItem("user-info")
+    const userData = userDataString ? JSON.parse(userDataString) : null
+    return userData
 }
 
 export const getAdminData = () => {
