@@ -9,6 +9,7 @@ import InputCheckBox from "../components/ui/InputCheckBox";
 import { axiosInstance } from "../config/axios.config";
 import { AddProductForm, ProductCategories } from "../data";
 import { IAddProduct } from "../interface";
+import Textarea from "../components/ui/TextArea";
 
 const AddProduct = () => {
     const [selectedCategory, setSelectedCategory] = useState("");
@@ -71,7 +72,7 @@ const AddProduct = () => {
         setSelectedImages((prevImages) => [...prevImages, null]);
     };
 
-    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         let { name, value } = e.target;
         setFormData((prevData) => ({
             ...prevData,
@@ -105,17 +106,46 @@ const AddProduct = () => {
             >
                 {input.label}
             </label>
-            <Input
-                type={input.type}
-                id={input.id}
-                name={input.name}
-                required={input.required}
-                placeholder={input.placeholder}
-                value={formData[input.name]}
-                onChange={handleInputChange}
-            />
+            {input.name === "description" ? (
+                <Textarea
+                    id={input.id}
+                    name={input.name}
+                    required={input.required}
+                    placeholder={input.placeholder}
+                    value={formData[input.name]}
+                    onChange={handleInputChange}
+                    rows={5}
+                />
+            ) : (
+                <Input
+                    type={input.type}
+                    id={input.id}
+                    name={input.name}
+                    required={input.required}
+                    placeholder={input.placeholder}
+                    value={formData[input.name]}
+                    onChange={handleInputChange}
+                />
+            )}
         </div>
     ))
+
+    const handleClearAll = () => {
+        setFormData({
+            name: "",
+            description: "",
+            price: 0,
+            amount: 0,
+            photo: [],
+            place: "",
+            OneItemPrice: 0,
+            discount: 0,
+            priceAfterDiscount: 0,
+            categoryName: "",
+        })
+        setSelectedImages([null])
+        setSelectedCategory("")
+    }
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -126,19 +156,7 @@ const AddProduct = () => {
                 duration: 2000,
                 position: "top-right"
             })
-            setFormData({
-                name: "",
-                description: "",
-                price: 0,
-                amount: 0,
-                photo: [],
-                place: "",
-                OneItemPrice: 0,
-                discount: 0,
-                priceAfterDiscount: 0,
-                categoryName: "",
-            })
-            setSelectedImages([null])
+            handleClearAll()
         } catch (error) {
             console.log(error)
         }
@@ -211,7 +229,8 @@ const AddProduct = () => {
                             نشر الأن
                         </button>
 
-                        <button className="w-[270px] py-1.5 bg-white rounded-[3px] text-teal-700 border border-teal-700 text-[23px]">
+                        <button type="button" className="w-[270px] py-1.5 bg-white rounded-[3px] text-teal-700 border border-teal-700 text-[23px]"
+                            onClick={handleClearAll}>
                             مسح
                         </button>
                     </div>

@@ -66,10 +66,9 @@ const Reviews = () => {
     useEffect(() => {
         if (data) {
             const allRatings = data.data.review.reduce((acc: number, review: IReview) => (acc + review.rating), 0)
-            setOverallRating((allRatings / data.data.review.length).toFixed(1));
+            setOverallRating(allRatings ? (allRatings / data.data.review.length).toFixed(1) : "0");
         }
     }, [data]);
-
 
     if (isLoading) {
         return <div>

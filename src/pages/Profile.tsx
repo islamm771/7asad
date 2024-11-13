@@ -21,23 +21,23 @@ const Profile = () => {
                 </div>
                 {/* Name */}
                 <div className="text-right flex justify-end items-center mr-6 mt-12 lg:mt-0 lg:mr-64">
-                    <h1 className="text-teal-950 text-2xl font-medium mb-2">
+                    <h1 className="text-teal-950 text-2xl font-medium">
                         {user.name}
                     </h1>
                     <FaUser
-                        className="text-amber-500 text-xl ml-3 mb-3"
+                        className="text-amber-500 text-xl ml-3"
                     />
                 </div>
-                <div className="text-right flex justify-end items-center mt-2">
+                <div className="text-right flex justify-end items-center mr-6 mt-6 lg:mt-2 lg:mr-64">
                     <h2 className="text-zinc-500 text-xl font-bold">{user.role}</h2>
                     <FaCircle
-                        className="text-green-400 text-[10px] mr-6 ml-4"
+                        className="text-green-400 text-[10px] ml-3"
                     />
                 </div>
 
                 {/* Remaining details */}
 
-                <div className="text-right flex justify-end items-center mt-6 lg:mt-12">
+                <div className="text-right flex justify-end items-center mt-6 lg:mt-8">
                     <h4 className="text-teal-700 text-2xl font-medium inline">
                         {user.phone}
                     </h4>
