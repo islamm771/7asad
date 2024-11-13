@@ -11,6 +11,9 @@ import { AddProductForm, ProductCategories } from "../data";
 import { IAddProduct } from "../interface";
 import Textarea from "../components/ui/Textarea";
 
+// update add product
+
+
 const AddProduct = () => {
     const [selectedCategory, setSelectedCategory] = useState("");
     const [selectedImages, setSelectedImages] = useState<(File | null)[]>([null]);
