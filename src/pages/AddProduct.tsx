@@ -9,7 +9,7 @@ import InputCheckBox from "../components/ui/InputCheckBox";
 import { axiosInstance } from "../config/axios.config";
 import { AddProductForm, ProductCategories } from "../data";
 import { IAddProduct } from "../interface";
-import Textarea from "../components/ui/TextArea";
+import Textarea from "../components/ui/Textarea";
 
 const AddProduct = () => {
     const [selectedCategory, setSelectedCategory] = useState("");
