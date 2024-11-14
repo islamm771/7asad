@@ -7,7 +7,7 @@ import Reviews from "../components/productDetails/Reviews"
 
 const ProductDetails = () => {
     const { id } = useParams()
-    const { isLoading, data } = useGetProductQuery({ id: id })
+    const { isLoading, data, error } = useGetProductQuery({ id: id })
     const [activeTab, setActiveTab] = useState('details');
     const [showAdditional, setShowAdditional] = useState(false)
     const [selectedImage, setSelectedImage] = useState<string>("");
@@ -20,6 +20,17 @@ const ProductDetails = () => {
                 <Header />
                 <div className="container">
                     <h3 className="text-3xl font-semibold py-12">Loading...</h3>
+                </div>
+            </div>
+        )
+    }
+
+    if (error) {
+        return (
+            <div className="product-details-loading">
+                <Header />
+                <div className="container" dir="rtl">
+                    <h3 className="text-3xl font-semibold py-12">خطا اثناء الحصول علي المنتج</h3>
                 </div>
             </div>
         )

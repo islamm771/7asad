@@ -1,7 +1,7 @@
 
 const Notifications = () => {
     return (
-        <div>Notifications</div>
+        <div className="container">Notifications</div>
     )
 }
 

@@ -1,11 +1,11 @@
-import { ChangeEvent, useEffect, useState } from "react"
+import { ChangeEvent, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
+import toast from "react-hot-toast"
 import { FaCheck, FaCloudUploadAlt } from "react-icons/fa"
 import { FaCircleExclamation } from "react-icons/fa6"
 import { useNavigate } from "react-router-dom"
 import { axiosInstance } from "../../config/axios.config"
-import toast from "react-hot-toast"
-import { IUser } from "../../interface"
+import { getUserData } from "../../data"
 
 interface IFormInput {
     name: string
@@ -19,12 +19,12 @@ interface IFormInput {
 
 
 const ProfileComplete = () => {
+    const user = getUserData();
     const navigate = useNavigate()
-    const [user, setUser] = useState<IUser | null>(null);
     const [isLoading, setIsLoading] = useState(false)
     const [selectedImage, setSelectedImage] = useState<File>();
     const [imgURL, setImgURL] = useState("")
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<IFormInput>({
+    const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>({
         defaultValues: {
             name: user?.name,
             country: user?.country,
@@ -88,31 +88,6 @@ const ProfileComplete = () => {
         }
 
     };
-
-
-    useEffect(() => {
-        const storedUser = localStorage.getItem('user-info');
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
-    }, []);
-
-
-    useEffect(() => {
-        if (user) {
-            reset({
-                name: user.name,
-                country: user.country,
-                phone: user.phone,
-                job: user.job,
-                Educationaldegree: user.Educationaldegree,
-            });
-        }
-
-    }, [user]);
-
-
-
 
     if (user) {
         return (

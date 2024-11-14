@@ -12,7 +12,7 @@ interface IProps {
 }
 
 const FavCard = ({ fav }: IProps) => {
-    const [removeFavourite] = useRemoveFavouriteMutation();
+    const [removeFavourite, { isLoading }] = useRemoveFavouriteMutation();
     const { product } = fav;
     const [quantity, setQuantity] = useState<number>(1);
     const [userName, setUserName] = useState<string | null>(null);
@@ -23,18 +23,22 @@ const FavCard = ({ fav }: IProps) => {
         }
     }, [product.user]);
 
-    const handleRemoveFromFav = (id: string) => {
-        removeFavourite({ favouriteId: id })
+    const handleRemoveFromFav = async (id: string) => {
+        await removeFavourite({ favouriteId: id })
             .unwrap()
+            .then(() => {
+                toast.success("تم مسح العنصر من المفضلة", {
+                    duration: 2000,
+                    position: 'top-right',
+                });
+            })
             .catch((error) => {
                 console.error("Failed to remove favorite:", error);
+                toast.error("خطأ اثناء مسح العنصر من المفضلة", {
+                    duration: 2000,
+                    position: 'top-right',
+                });
             });
-        setTimeout(() => {
-            toast.success("تم مسح العنصر من المفضلة", {
-                duration: 2000,
-                position: 'top-right',
-            });
-        }, 2000);
     };
 
     const handleIncrement = () => {
@@ -79,7 +83,7 @@ const FavCard = ({ fav }: IProps) => {
                     {product.description}
                 </p>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-2" dir="rtl">
-                    <button className="text-teal-950 text-start text-xl" onClick={() => handleRemoveFromFav(fav._id)}>
+                    <button disabled={isLoading} className="text-teal-950 text-start text-xl disabled:opacity-50 disabled:cursor-not-allowed" onClick={() => handleRemoveFromFav(fav._id)}>
                         حذف <RiDeleteBin6Line className="text-red-600 text-2xl mt-1 inline" />
                     </button>
                     <button className="text-teal-950 text-start text-xl">
